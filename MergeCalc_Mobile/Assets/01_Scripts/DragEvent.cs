@@ -6,6 +6,9 @@ public class DragEvent : MonoBehaviour
     private Vector2 startTouchPos;
     private Vector2 endPos;
 
+    [SerializeField] private Board board;
+
+
     private void Update()
     {
         if (Input.touchCount > 0)
@@ -20,13 +23,15 @@ public class DragEvent : MonoBehaviour
 
                 if(isHorizontal)
                 {
-                    if (pos.x < -sensitive) Debug.Log("왼");
-                    else if (pos.x > sensitive) Debug.Log("오");
+                    if (pos.x < -sensitive) board.OnDrag(Dir.Left);
+                    else if (pos.x > sensitive) board.OnDrag(Dir.Right);
                 }
                 else
                 {
-                    if (pos.y < -sensitive) Debug.Log("아래");
-                    else if (pos.y > sensitive) Debug.Log("위");
+                    if (Mathf.Abs(pos.y) > sensitive) Debug.Log("상하 드래그");
+
+                    if (pos.y < -sensitive) board.OnDrag(Dir.Down);
+                    else if (pos.y > sensitive) board.OnDrag(Dir.Up);
                 }
             }
         }
