@@ -27,10 +27,11 @@ public class Board : MonoBehaviour
     }
 
     #region Drag
-    private Vector2Int MoveTile(Vector2Int _vec, Dir _dir)
+    private Vector2Int GetDestination(Vector2Int _vec, Dir _dir)
     {
-        Debug.Log("Check " + _vec + " => " + _dir);
         int curX = _vec.x, curY = _vec.y;
+
+        Debug.Log(curX + " / " + curY);
 
         switch (_dir)
         {
@@ -40,7 +41,10 @@ public class Board : MonoBehaviour
             case Dir.Right: for (int x = _vec.x + 1; x < 5; ++x)    { if (gameTiles[_vec.y, x] != null) break; curX = x; } break;
         }
 
-        Debug.Log("Check Result : " + curX + " / " + curY);
+        Debug.Log(curX + " / " + curY);
+
+        Debug.Log("off");
+
         return new Vector2Int(curX, curY);
     }
 
@@ -50,18 +54,15 @@ public class Board : MonoBehaviour
 
         if (_dir == Dir.Down || _dir == Dir.Right) { n = 4; v = m = -1; }
 
-        Debug.Log("Init { N : " + n + " / V : " + v + " / M : " + m);
-
         for (int loop = 0; loop < 5; loop++)
         {
             for (int i = n; i != m; i+=v)
             {
-                Debug.Log(i + " / " + loop);
                 if (_dir == Dir.Up || _dir == Dir.Down)
                 {
                     if (gameTiles[i, loop] == null) continue;
 
-                    Vector2Int v2Int = MoveTile(new Vector2Int(loop, i), _dir);
+                    Vector2Int v2Int = GetDestination(new Vector2Int(loop, i), _dir);
 
                     if (v2Int.y == i) return;
 
@@ -73,7 +74,7 @@ public class Board : MonoBehaviour
                 {
                     if (gameTiles[loop, i] == null) continue;
 
-                    Vector2Int v2Int = MoveTile(new Vector2Int(loop, i), _dir);
+                    Vector2Int v2Int = GetDestination(new Vector2Int(i, loop), _dir);
 
                     if (v2Int.x == i) return;
 

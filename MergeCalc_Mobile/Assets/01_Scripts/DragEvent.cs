@@ -23,6 +23,7 @@ public class DragEvent : MonoBehaviour
 
                 if(isHorizontal)
                 {
+                    if (Mathf.Abs(pos.x) > sensitive) Debug.Log("좌우 드래그");
                     if (pos.x < -sensitive) board.OnDrag(Dir.Left);
                     else if (pos.x > sensitive) board.OnDrag(Dir.Right);
                 }
