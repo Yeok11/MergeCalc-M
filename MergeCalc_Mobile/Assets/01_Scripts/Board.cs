@@ -1,37 +1,48 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Board : MonoBehaviour
 {
     [SerializeField] private Transform groupPos;
     private Transform[] backTiles = new Transform[25];
-    [SerializeField] private Transform tilePos;
-
+    private List<Transform> canUseTiles = new List<Transform>();
+    
     private Tile[,] gameTiles = new Tile[5,5];
 
 
     private void Awake()
     {
-        for (int i = 0; i < groupPos.childCount; i++) backTiles[i] = groupPos.GetChild(i);
+        for (int i = 0; i < groupPos.childCount; i++)
+        {
+            backTiles[i] = groupPos.GetChild(i);
+            canUseTiles.Add(backTiles[i]);
+        }
     }
 
-    [SerializeField] Tile testTile;
-    public void Spawn()
+    public void Init(Tile _main)
     {
-        int x = Random.Range(0, 5), y = Random.Range(0, 5);
+        Transform trm = backTiles[12];
+        canUseTiles.Remove(trm);
+        gameTiles[2, 2] = _main;
 
-        Tile t = Instantiate(testTile, tilePos);
-        t.transform.position = backTiles[y * 5 + x].transform.position;
-        gameTiles[y, x] = t;
+        _main.transform.position = trm.position;
+    }
 
-        t.Init(5);
+    public void Spawn(Tile _tile)
+    {
+        Transform trm = canUseTiles[Random.Range(0, canUseTiles.Count)];
+        canUseTiles.Remove(trm);
+
+        _tile.transform.position = trm.position;
+        int v = trm.GetSiblingIndex();
+
+        gameTiles[v / 5, v % 5] = _tile;
     }
 
     #region Drag
     private Vector2Int GetDestination(Vector2Int _vec, Dir _dir)
     {
         int curX = _vec.x, curY = _vec.y;
-
-        Debug.Log(curX + " / " + curY);
 
         switch (_dir)
         {
@@ -41,9 +52,8 @@ public class Board : MonoBehaviour
             case Dir.Right: for (int x = _vec.x + 1; x < 5; ++x)    { if (gameTiles[_vec.y, x] != null) break; curX = x; } break;
         }
 
-        Debug.Log(curX + " / " + curY);
-
-        Debug.Log("off");
+        canUseTiles.Add(gameTiles[_vec.y, _vec.x].transform);
+        canUseTiles.Remove(gameTiles[curY, curX].transform);
 
         return new Vector2Int(curX, curY);
     }
