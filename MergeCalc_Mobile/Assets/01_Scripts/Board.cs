@@ -35,7 +35,6 @@ public class Board : MonoBehaviour
 
         _tile.transform.position = trm.position;
         int v = trm.GetSiblingIndex();
-
         gameTiles[v / 5, v % 5] = _tile;
     }
 
@@ -52,8 +51,8 @@ public class Board : MonoBehaviour
             case Dir.Right: for (int x = _vec.x + 1; x < 5; ++x)    { if (gameTiles[_vec.y, x] != null) break; curX = x; } break;
         }
 
-        canUseTiles.Add(gameTiles[_vec.y, _vec.x].transform);
-        canUseTiles.Remove(gameTiles[curY, curX].transform);
+        canUseTiles.Add(backTiles[_vec.y * 5 + _vec.x]);
+        canUseTiles.Remove(backTiles[curY * 5 + curX]);
 
         return new Vector2Int(curX, curY);
     }
@@ -91,15 +90,9 @@ public class Board : MonoBehaviour
                     gameTiles[loop, i].Move(backTiles[v2Int.y * 5 + v2Int.x].transform);
                     gameTiles[v2Int.y, v2Int.x] = gameTiles[loop, i];
                     gameTiles[loop, i] = null;
-
-                    //if (gameTiles[loop, i] == null) continue;
-                    //MoveTile(new Vector2Int(n, loop), _dir);
-                    ////gameTiles[loop, n];
                 }
             }
         }
-
-        Debug.Log("All Fin -> Dir : " + _dir);
     }
     #endregion
 }

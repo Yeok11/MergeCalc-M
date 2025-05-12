@@ -30,6 +30,8 @@ public class Tile : MonoBehaviour
         str += num.ToString();
 
         tmp.text = str;
+
+        gameObject.SetActive(true);
     }
 
     public void Move(Transform _trm)

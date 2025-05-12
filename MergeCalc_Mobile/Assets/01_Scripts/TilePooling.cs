@@ -6,8 +6,6 @@ public class TilePooling : MonoBehaviour
     public static TilePooling Instance;
 
     [SerializeField] private Tile tilePrefab;
-    
-
     private List<Tile> tileList = new List<Tile>();
 
     private void Awake()
@@ -21,13 +19,14 @@ public class TilePooling : MonoBehaviour
         for (int i = 0; i < 24; i++)
         {
             Tile t = Instantiate(tilePrefab, transform);
-            t.gameObject.SetActive(false);
+            Push(t);
         }
     }
 
     public void Push(Tile _tile)
     {
         _tile.transform.parent = transform;
+        _tile.gameObject.SetActive(false);
         tileList.Add(_tile);
     }
 
