@@ -19,19 +19,22 @@ public class Tile : MonoBehaviour
         num = Random.Range(0, _v) + 1;
         calc = (Calculate)Random.Range(0, 4);
 
+        TextUpdate();
+
+        gameObject.SetActive(true);
+    }
+
+    protected virtual void TextUpdate()
+    {
         string str = "";
         switch (calc)
         {
-            case Calculate.Plus:    str = "+"; break;
-            case Calculate.Minus:   str = "-"; break;
-            case Calculate.Multiple:str = "x"; break;
-            case Calculate.Divide:  str = "/"; break;
+            case Calculate.Plus: str = "+"; break;
+            case Calculate.Minus: str = "-"; break;
+            case Calculate.Multiple: str = "x"; break;
+            case Calculate.Divide: str = "/"; break;
         }
-        str += num.ToString();
-
-        tmp.text = str;
-
-        gameObject.SetActive(true);
+        tmp.text = str + num.ToString();
     }
 
     public void Move(Transform _trm)

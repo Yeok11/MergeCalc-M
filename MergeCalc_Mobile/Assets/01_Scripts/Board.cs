@@ -19,13 +19,13 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void Init(Tile _main)
+    public void Init(PlayerTile _tile)
     {
         Transform trm = backTiles[12];
         canUseTiles.Remove(trm);
-        gameTiles[2, 2] = _main;
+        gameTiles[2, 2] = _tile;
 
-        _main.transform.position = trm.position;
+        _tile.transform.position = trm.position;
     }
 
     public void Spawn(Tile _tile)
@@ -59,38 +59,27 @@ public class Board : MonoBehaviour
 
     public void OnDrag(Dir _dir)
     {
-        int n = 0, v = 1, m = 5;
+        int x, y, n = 0, v = 1, m = 5;
 
         if (_dir == Dir.Down || _dir == Dir.Right) { n = 4; v = m = -1; }
+        bool isVertical = (_dir == Dir.Up || _dir == Dir.Down);
 
         for (int loop = 0; loop < 5; loop++)
         {
             for (int i = n; i != m; i+=v)
             {
-                if (_dir == Dir.Up || _dir == Dir.Down)
-                {
-                    if (gameTiles[i, loop] == null) continue;
+                if(isVertical) { x = i; y = loop; }
+                else { x = loop; y = i; }
 
-                    Vector2Int v2Int = GetDestination(new Vector2Int(loop, i), _dir);
+                if (gameTiles[x, y] == null) continue;
+                Vector2Int v2Int = GetDestination(new Vector2Int(y, x), _dir);
 
-                    if (v2Int.y == i) return;
+                if (isVertical && v2Int.y == i) return;
+                else if (!isVertical && v2Int.x == i) return;
 
-                    gameTiles[i, loop].Move(backTiles[v2Int.y * 5 + v2Int.x].transform);
-                    gameTiles[v2Int.y, v2Int.x] = gameTiles[i, loop];
-                    gameTiles[i, loop] = null;
-                }
-                else
-                {
-                    if (gameTiles[loop, i] == null) continue;
-
-                    Vector2Int v2Int = GetDestination(new Vector2Int(i, loop), _dir);
-
-                    if (v2Int.x == i) return;
-
-                    gameTiles[loop, i].Move(backTiles[v2Int.y * 5 + v2Int.x].transform);
-                    gameTiles[v2Int.y, v2Int.x] = gameTiles[loop, i];
-                    gameTiles[loop, i] = null;
-                }
+                gameTiles[x, y].Move(backTiles[v2Int.y * 5 + v2Int.x].transform);
+                gameTiles[v2Int.y, v2Int.x] = gameTiles[x, y];
+                gameTiles[x, y] = null;
             }
         }
     }

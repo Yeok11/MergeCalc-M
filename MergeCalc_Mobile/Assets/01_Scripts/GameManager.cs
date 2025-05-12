@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Tile mainTile;
+    [SerializeField] private PlayerTile mainTile;
     [SerializeField] private Transform tilePos;
     private int limitCnt = 5;
 
@@ -15,17 +15,17 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Tile m = Instantiate(mainTile, tilePos);
-        m.Init(0);
-        board.Init(m);
+        PlayerTile _mainTile = Instantiate(mainTile, tilePos);
+        _mainTile.Init(1);
+        board.Init(_mainTile);
     }
 
     public void Spawn()
     {
-        Tile t = TilePooling.Instance.Pop(tilePos);
-        t.Init(limitCnt);
+        Tile tile = TilePooling.Instance.Pop(tilePos);
+        tile.Init(limitCnt);
 
-        board.Spawn(t);
+        board.Spawn(tile);
     }
 
 }

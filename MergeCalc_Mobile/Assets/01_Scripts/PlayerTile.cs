@@ -4,6 +4,15 @@ public class PlayerTile : Tile
 {
     public override void Init(int _v)
     {
-        tmp.text = _v.ToString();
+        calc = Calculate.Plus;
+        num = _v;
+
+        TextUpdate();
+    }
+
+    protected override void TextUpdate()
+    {
+        if (num < 0) tmp.text = "-" + num.ToString();
+        else tmp.text = num.ToString();
     }
 }
