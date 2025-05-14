@@ -4,10 +4,12 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     [SerializeField] private Transform groupPos;
+    
     private Transform[] backTiles = new Transform[25];
     private List<Transform> canUseTiles = new List<Transform>();
-    
     private Tile[,] gameTiles = new Tile[5,5];
+
+
 
 
     private void Awake()
@@ -57,29 +59,30 @@ public class Board : MonoBehaviour
         return new Vector2Int(curX, curY);
     }
 
-    public void OnDrag(Dir _dir)
+    public void OnDragEvent(Dir _dir)
     {
         int x, y, n = 0, v = 1, m = 5;
 
+        Debug.Log(_dir);
         if (_dir == Dir.Down || _dir == Dir.Right) { n = 4; v = m = -1; }
-        bool isVertical = (_dir == Dir.Up || _dir == Dir.Down);
+        bool verticalCheck = (_dir == Dir.Up || _dir == Dir.Down);
 
         for (int loop = 0; loop < 5; loop++)
         {
             for (int i = n; i != m; i+=v)
             {
-                if(isVertical) { x = i; y = loop; }
-                else { x = loop; y = i; }
+                if (verticalCheck) { x = loop; y = i; }
+                else { x = i; y = loop; }
 
-                if (gameTiles[x, y] == null) continue;
-                Vector2Int v2Int = GetDestination(new Vector2Int(y, x), _dir);
+                if (gameTiles[y, x] == null) continue;
+                Vector2Int v2Int = GetDestination(new Vector2Int(x, y), _dir);
 
-                if (isVertical && v2Int.y == i) return;
-                else if (!isVertical && v2Int.x == i) return;
+                if (verticalCheck && v2Int.y == i) continue;
+                else if (!verticalCheck && v2Int.x == i) continue;
 
-                gameTiles[x, y].Move(backTiles[v2Int.y * 5 + v2Int.x].transform);
-                gameTiles[v2Int.y, v2Int.x] = gameTiles[x, y];
-                gameTiles[x, y] = null;
+                gameTiles[y, x].Move(backTiles[v2Int.y * 5 + v2Int.x].transform);
+                gameTiles[v2Int.y, v2Int.x] = gameTiles[y, x];
+                gameTiles[y, x] = null;
             }
         }
     }

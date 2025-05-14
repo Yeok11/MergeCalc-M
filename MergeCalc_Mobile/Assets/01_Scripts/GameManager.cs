@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+
     [SerializeField] private PlayerTile mainTile;
     [SerializeField] private Transform tilePos;
     private int limitCnt = 5;
@@ -10,6 +12,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null) { Destroy(gameObject); return; }
+        Instance = this;
+
         board = GetComponent<Board>();
     }
 
