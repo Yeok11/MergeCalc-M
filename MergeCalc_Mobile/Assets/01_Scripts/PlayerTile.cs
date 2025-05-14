@@ -1,11 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerTile : Tile
 {
-    public override void Init(int _v)
+    public override void Init(int _v, UnityAction _moveFin)
     {
         calc = Calculate.Plus;
         num = _v;
+        moveFin = _moveFin;
 
         TextUpdate();
     }

@@ -9,9 +9,6 @@ public class Board : MonoBehaviour
     private List<Transform> canUseTiles = new List<Transform>();
     private Tile[,] gameTiles = new Tile[5,5];
 
-
-
-
     private void Awake()
     {
         for (int i = 0; i < groupPos.childCount; i++)
@@ -62,8 +59,8 @@ public class Board : MonoBehaviour
     public void OnDragEvent(Dir _dir)
     {
         int x, y, n = 0, v = 1, m = 5;
+        List<Tile> _moveTiles = new List<Tile>();
 
-        Debug.Log(_dir);
         if (_dir == Dir.Down || _dir == Dir.Right) { n = 4; v = m = -1; }
         bool verticalCheck = (_dir == Dir.Up || _dir == Dir.Down);
 
@@ -80,11 +77,15 @@ public class Board : MonoBehaviour
                 if (verticalCheck && v2Int.y == i) continue;
                 else if (!verticalCheck && v2Int.x == i) continue;
 
-                gameTiles[y, x].Move(backTiles[v2Int.y * 5 + v2Int.x].transform);
+                gameTiles[y, x].MoveSet(backTiles[v2Int.y * 5 + v2Int.x].transform);
+                _moveTiles.Add(gameTiles[y, x]);
+
                 gameTiles[v2Int.y, v2Int.x] = gameTiles[y, x];
                 gameTiles[y, x] = null;
             }
         }
+
+        GameManager.Instance.Move(_moveTiles);
     }
     #endregion
 }
