@@ -1,4 +1,4 @@
-public enum Calculate
+public enum CalcEnum
 {
     Plus = 0,
     Minus,

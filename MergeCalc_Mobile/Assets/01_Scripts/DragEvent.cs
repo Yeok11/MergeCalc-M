@@ -9,6 +9,8 @@ public class DragEvent : MonoBehaviour
 
     private void Update()
     {
+        if (!GameSystem.Instance.canDrag) return;
+
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);

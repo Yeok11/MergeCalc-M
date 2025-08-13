@@ -5,8 +5,8 @@ public class TilePooling : MonoBehaviour
 {
     public static TilePooling Instance;
 
-    [SerializeField] private Tile tilePrefab;
-    private List<Tile> tileList = new List<Tile>();
+    [SerializeField] private MoveTile tilePrefab;
+    private List<MoveTile> tileList = new List<MoveTile>();
 
     private void Awake()
     {
@@ -18,23 +18,23 @@ public class TilePooling : MonoBehaviour
     {
         for (int i = 0; i < 24; i++)
         {
-            Tile t = Instantiate(tilePrefab, transform);
+            MoveTile t = Instantiate(tilePrefab, transform);
             Push(t);
         }
     }
 
-    public void Push(Tile _tile)
+    public void Push(MoveTile _tile)
     {
-        _tile.transform.parent = transform;
+        _tile.transform.SetParent(transform);
         _tile.gameObject.SetActive(false);
         tileList.Add(_tile);
     }
 
-    public Tile Pop(Transform _parent)
+    public MoveTile Pop(Transform _parent)
     {
-        Tile t = tileList[0];
+        MoveTile t = tileList[0];
         tileList.RemoveAt(0);
-        t.transform.parent = _parent;
+        t.transform.SetParent(_parent);
         t.transform.localScale = Vector3.one;
 
         return t;
