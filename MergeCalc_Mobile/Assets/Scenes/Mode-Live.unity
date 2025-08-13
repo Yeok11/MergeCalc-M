@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9811321, g: 0.90868884, b: 0.8052687, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1444,7 +1444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5597484, g: 0.5597484, b: 0.5597484, a: 1}
+  m_Color: {r: 0.408805, g: 0.34413624, b: 0.294391, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2582,6 +2582,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainTilePrefab: {fileID: 3418777382692948154, guid: e7214f386e433a54693cdb698971225b, type: 3}
   tilePos: {fileID: 6080657}
+  scoreTmp: {fileID: 1108838349}
   showTiles:
   - {fileID: 2071697499}
   - {fileID: 664574070}
@@ -2591,7 +2592,6 @@ MonoBehaviour:
   canDrag: 0
   leftText: {fileID: 1765397938}
   rangeText: {fileID: 1734048532}
-  scoreText: {fileID: 1108838349}
 --- !u!1001 &1498353696
 PrefabInstance:
   m_ObjectHideFlags: 0
