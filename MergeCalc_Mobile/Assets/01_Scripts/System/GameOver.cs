@@ -13,13 +13,13 @@ public class GameOver : MonoBehaviour
 
     public void GameFinish()
     {
-        highScore.SetText($"High Score : {GameData.highScore}");
+        highScore.SetText($"High Score : {GameData.GetHScore()}");
         score.SetText($"Score : {GameData.currentScore}");
     }
 
     public void Retry()
     {
-        SceneManager.LoadScene("Mode-Live");
+        SceneManager.LoadScene("Mode-" + GameData.currentMode);
     }
 
     public void Home()

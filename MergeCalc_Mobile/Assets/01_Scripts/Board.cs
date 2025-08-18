@@ -12,6 +12,8 @@ public class Board : MonoBehaviour
     private MainTile mainTile;
     private bool usedMerge;
 
+    [SerializeField] private DragSystem dragSystem;
+
     private void Awake()
     {
         for (int i = 0; i < groupPos.childCount; i++)
@@ -19,6 +21,11 @@ public class Board : MonoBehaviour
             backTiles[i] = groupPos.GetChild(i);
             canUseTiles.Add(backTiles[i]);
         }
+    }
+
+    private void Start()
+    {
+        dragSystem.dragEvent += OnDragEvent;
     }
 
     public void Init(MainTile _tile)

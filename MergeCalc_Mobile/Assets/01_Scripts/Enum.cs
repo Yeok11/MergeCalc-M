@@ -13,3 +13,12 @@ public enum Dir
     Left,
     Right
 }
+
+public enum Mode
+{
+    Live,
+    Reach,
+    Explain,
+    Setting,
+    Quit
+}

@@ -1,15 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 
-public class DragEvent : MonoBehaviour
+public class DragSystem : MonoBehaviour
 {
     [SerializeField, Range(40, 100)] private int sensitive = 50;
     private Vector2 startTouchPos;
 
-    [SerializeField] private Board board;
+    internal UnityAction<Dir> dragEvent;
 
     private void Update()
     {
-        if (!GameSystem.Instance.canDrag) return;
+        if (!GameData.canDrag) return;
 
         if (Input.touchCount > 0)
         {
@@ -25,15 +26,15 @@ public class DragEvent : MonoBehaviour
                 {
                     if (Mathf.Abs(pos.x) > sensitive) Debug.Log("좌우 드래그");
 
-                    if (pos.x < -sensitive) board.OnDragEvent(Dir.Left);
-                    else if (pos.x > sensitive) board.OnDragEvent(Dir.Right);
+                    if (pos.x < -sensitive) dragEvent?.Invoke(Dir.Left);
+                    else if (pos.x > sensitive) dragEvent?.Invoke(Dir.Right);
                 }
                 else
                 {
                     if (Mathf.Abs(pos.y) > sensitive) Debug.Log("상하 드래그");
 
-                    if (pos.y < -sensitive) board.OnDragEvent(Dir.Down);
-                    else if (pos.y > sensitive) board.OnDragEvent(Dir.Up);
+                    if (pos.y < -sensitive) dragEvent?.Invoke(Dir.Down);
+                    else if (pos.y > sensitive) dragEvent?.Invoke(Dir.Up);
                 }
             }
         }

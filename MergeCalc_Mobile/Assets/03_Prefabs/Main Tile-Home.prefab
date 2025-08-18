@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4938505544288162507
+--- !u!1 &4708070111370442145
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5926086656580267155}
-  - component: {fileID: 1542037704303829746}
-  - component: {fileID: 308702256904199615}
+  - component: {fileID: 518965184026462589}
+  - component: {fileID: 2806762662046107079}
+  - component: {fileID: 3089263479957953091}
   m_Layer: 5
   m_Name: Num
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &5926086656580267155
+--- !u!224 &518965184026462589
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4938505544288162507}
+  m_GameObject: {fileID: 4708070111370442145}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -37,21 +37,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &1542037704303829746
+--- !u!222 &2806762662046107079
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4938505544288162507}
+  m_GameObject: {fileID: 4708070111370442145}
   m_CullTransparentMesh: 1
---- !u!114 &308702256904199615
+--- !u!114 &3089263479957953091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4938505544288162507}
+  m_GameObject: {fileID: 4708070111370442145}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: X77
+  m_text: Y
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 45402ba8a264df54393d1a5d430d456e, type: 2}
   m_sharedMaterial: {fileID: 3960921149749258129, guid: 45402ba8a264df54393d1a5d430d456e, type: 2}
@@ -93,7 +93,7 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontSize: 90
-  m_fontSizeBase: 36
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 50
@@ -147,9 +147,9 @@ GameObject:
   - component: {fileID: 2616332858083370067}
   - component: {fileID: 4308930979121021352}
   - component: {fileID: 583864993455684658}
-  - component: {fileID: 13915820423579601}
+  - component: {fileID: 3418777382692948154}
   m_Layer: 5
-  m_Name: Tile Shower
+  m_Name: Main Tile-Home
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,7 +167,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5926086656580267155}
+  - {fileID: 518965184026462589}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.72, g: 0.63, b: 0.55, a: 1}
+  m_Color: {r: 0.53267205, g: 0.7106918, b: 0.34193656, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &13915820423579601
+--- !u!114 &3418777382692948154
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,6 +222,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6644907515793405851}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a20bf297f2772f4287599b550d3666f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c30772a9a1b15043b9247c711d05202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

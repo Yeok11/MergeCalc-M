@@ -4,10 +4,10 @@ using UnityEngine.Events;
 
 public class MoveTile : Tile
 {
-    [SerializeField] private float t = 0.4f;
-
     protected UnityAction moveFin;
     protected Transform destination;
+
+    private float t;
     
     public virtual void Init(Tile _tile, UnityAction _ua) => Init(_tile.data, _ua);
 
@@ -15,6 +15,7 @@ public class MoveTile : Tile
     {
         base.Init(_tileData);
 
+        t = _tileData.time;
         moveFin = _moveFin;
         gameObject.SetActive(true);
     }

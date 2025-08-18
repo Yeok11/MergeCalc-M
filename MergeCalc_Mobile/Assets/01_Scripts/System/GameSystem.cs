@@ -16,12 +16,11 @@ public class GameSystem : MonoBehaviour
     protected Queue<TileData> nextTiles = new();
 
     [SerializeField] protected List<ShowTile> showTiles;
+    [SerializeField] protected float tileMoveTime = 0.25f;
     protected int showTileNum = 0;
 
     private Board board;
 
-
-    public bool canDrag = false;
     protected UnityAction dragEvent;
 
     private void Awake()
@@ -35,10 +34,12 @@ public class GameSystem : MonoBehaviour
     protected virtual void Start()
     {
         mainTile = Instantiate(mainTilePrefab, tilePos);
-        mainTile.Init(new TileData(CalcEnum.Plus, 1), MoveFinCheck);
+        mainTile.Init(new TileData(CalcEnum.Plus, 1, tileMoveTime), MoveFinCheck);
         
         score = 0;
         scoreTmp.SetText("0");
+
+        GameData.canDrag = true;
         
         board.Init(mainTile);
     }
@@ -51,26 +52,6 @@ public class GameSystem : MonoBehaviour
 
     public virtual void SetNextTiles()
     {
-        List<TileData> _tileDatas = new();
-
-        for (int calc = 0; calc < 4; calc++)
-        {
-            for (int num = 1; num <= limitCnt; num++)
-            {
-                if (calc > 1 && num == 1) continue;
-
-                _tileDatas.Add(new((CalcEnum)calc, num));
-            }
-        }
-
-        while (_tileDatas.Count != 0)
-        {
-            int _rand = Random.Range(0, _tileDatas.Count);
-            nextTiles.Enqueue(_tileDatas[_rand]);
-            _tileDatas.RemoveAt(_rand);
-        }
-
-        UpdateUiTiles();
     }
 
     protected void UpdateUiTiles()
@@ -85,7 +66,7 @@ public class GameSystem : MonoBehaviour
             }
         }
 
-        canDrag = true;
+        GameData.canDrag = true;
     }
 
     protected virtual void Spawn()

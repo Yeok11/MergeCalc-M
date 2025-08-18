@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class ReachMode : GameSystem
 {
@@ -35,9 +34,9 @@ public class ReachMode : GameSystem
         if (n > range || n < -range)
         {
             Debug.Log("is Dead");
-            canDrag = false;
+            GameData.canDrag = false;
 
-            GameData.DataUpdate(score);
+            GameData.DataUpdate(score, Mode.Reach);
 
             UnityEngine.SceneManagement.SceneManager.LoadScene("Game Over");
         }
@@ -49,15 +48,15 @@ public class ReachMode : GameSystem
 
         for (int calc = 0; calc < 4; calc++)
         {
-            for (int num = 1; num <= 7; num++)
+            for (int num = 1; num <= 5; num++)
             {
                 if (calc > 1)
                 {
                     if (num == 1) continue;
-                    if (num > 5) break;
+                    if (num > 3) break;
                 }
 
-                _tileDatas.Add(new((CalcEnum)calc, num));
+                _tileDatas.Add(new((CalcEnum)calc, num, tileMoveTime));
             }
         }
 
@@ -73,11 +72,14 @@ public class ReachMode : GameSystem
 
     private void SetTarget(bool _includeZero)
     {
-        if (_includeZero)
-            target = Random.Range(-20, 21);
-        else
-            target = Random.Range(1,21) * (Random.Range(0, 2) == 0 ? -1 : 1);
-
+        while (target == mainTile.GetValue())
+        {
+            if (_includeZero)
+                target = Random.Range(-20, 21);
+            else
+                target = Random.Range(1, 21) * (Random.Range(0, 2) == 0 ? -1 : 1);
+        }
+        
         targetText.SetText($"Limit : {range} / Goal : {target}");
     }
 

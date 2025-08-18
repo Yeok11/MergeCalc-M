@@ -31,9 +31,9 @@ public class LiveMode : GameSystem
         if (n > range || n < -range)
         {
             Debug.Log("is Dead");
-            canDrag = false;
+            GameData.canDrag = false;
 
-            GameData.DataUpdate(score);
+            GameData.DataUpdate(score, Mode.Live);
 
             UnityEngine.SceneManagement.SceneManager.LoadScene("Game Over");
         }
@@ -64,7 +64,7 @@ public class LiveMode : GameSystem
             {
                 if (calc > 1 && num == 1) continue;
 
-                _tileDatas.Add(new((CalcEnum)calc, num));
+                _tileDatas.Add(new((CalcEnum)calc, num, tileMoveTime));
             }
         }
 
@@ -95,7 +95,7 @@ public class LiveMode : GameSystem
 
         if (cnt == 0)
         {
-            canDrag = false;
+            GameData.canDrag = false;
             Invoke("SetNextStage", 1.5f);
         }
     }
