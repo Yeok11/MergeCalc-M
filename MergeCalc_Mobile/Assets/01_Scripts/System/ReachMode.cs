@@ -14,7 +14,7 @@ public class ReachMode : GameSystem
         get => LeaveTime;
         set
         {
-            LeaveTime += value;
+            LeaveTime = value;
             if (LeaveTime > gameTime) LeaveTime = gameTime;
         }
     }
