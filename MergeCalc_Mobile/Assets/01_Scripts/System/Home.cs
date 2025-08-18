@@ -25,7 +25,7 @@ public class Home : MonoBehaviour
 
         TitleUpdate();
 
-        Invoke("MoveToBase", 0.05f);
+        mainTile.transform.localPosition = Vector3.zero;
     }
 
     public void ModeChange(Dir _dir)
