@@ -17,7 +17,7 @@ public class ReachMode : GameSystem
 
         mainTile.mergeEvent += TargetCheck;
 
-        SetTarget(false);
+        SetTarget();
 
         SetNextTiles();
     }
@@ -70,16 +70,14 @@ public class ReachMode : GameSystem
         UpdateUiTiles();
     }
 
-    private void SetTarget(bool _includeZero)
+    private void SetTarget()
     {
-        while (target == mainTile.GetValue())
+        do
         {
-            if (_includeZero)
-                target = Random.Range(-20, 21);
-            else
-                target = Random.Range(1, 21) * (Random.Range(0, 2) == 0 ? -1 : 1);
+            target = Random.Range(-20, 21);
         }
-        
+        while (target == mainTile.GetValue());
+
         targetText.SetText($"Limit : {range} / Goal : {target}");
     }
 
@@ -90,6 +88,6 @@ public class ReachMode : GameSystem
         AddScore(1);
         target = Random.Range(1, 21);
 
-        SetTarget(true);
+        SetTarget();
     }
 }
