@@ -1,11 +1,24 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ReachMode : GameSystem
 {
     [SerializeField] private TextMeshProUGUI targetText;
-    private int target, range = 25;
+    private int target, targetRange = 20;
+
+    [SerializeField] private Image timer;
+    private float leaveTime
+    {
+        get => LeaveTime;
+        set
+        {
+            LeaveTime += value;
+            if (LeaveTime > gameTime) LeaveTime = gameTime;
+        }
+    }
+    private float LeaveTime, gameTime = 60;
 
     protected override void Start()
     {
@@ -18,8 +31,10 @@ public class ReachMode : GameSystem
         mainTile.mergeEvent += TargetCheck;
 
         SetTarget();
-
         SetNextTiles();
+
+        leaveTime = gameTime;
+        timer.fillAmount = 1;
     }
 
     private void NextTileCheck()
@@ -29,9 +44,7 @@ public class ReachMode : GameSystem
 
     private void DeadCheck()
     {
-        int n = mainTile.GetValue();
-
-        if (n > range || n < -range)
+        if (0 >= leaveTime)
         {
             Debug.Log("is Dead");
             GameData.canDrag = false;
@@ -40,6 +53,12 @@ public class ReachMode : GameSystem
 
             UnityEngine.SceneManagement.SceneManager.LoadScene("Game Over");
         }
+    }
+
+    private void Update()
+    {
+        leaveTime -= Time.deltaTime;
+        timer.fillAmount = leaveTime / gameTime;
     }
 
     public override void SetNextTiles()
@@ -74,20 +93,21 @@ public class ReachMode : GameSystem
     {
         do
         {
-            target = Random.Range(-20, 21);
+            target = Random.Range(-targetRange, targetRange+1);
         }
         while (target == mainTile.GetValue());
 
-        targetText.SetText($"Limit : {range} / Goal : {target}");
+        targetText.SetText($"Target : {target}");
     }
 
     private void TargetCheck(int _value)
     {
         if (target != _value) return;
 
+        leaveTime += 10;
         AddScore(1);
-        target = Random.Range(1, 21);
 
+        targetRange = 20 + (score / 10 * 5);
         SetTarget();
     }
 }
