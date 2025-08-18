@@ -21,7 +21,7 @@ public class Home : MonoBehaviour
 
         dragEvent.dragEvent += TileMove;
 
-        modeNum = 0;
+        modeNum = (int)GameData.currentMode;
 
         TitleUpdate();
 
@@ -128,6 +128,7 @@ public class Home : MonoBehaviour
             case Mode.Setting:
                 break;
             case Mode.Quit:
+                Application.Quit();
                 break;
         }
     }
