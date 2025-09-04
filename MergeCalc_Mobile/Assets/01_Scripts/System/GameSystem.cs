@@ -11,13 +11,12 @@ public class GameSystem : MonoBehaviour
     [SerializeField] private MainTile mainTilePrefab;
     [SerializeField] private Transform tilePos;
     [SerializeField] protected TextMeshProUGUI scoreTmp;
-    protected int limitCnt = 5, moveTileCnt, checkTileCnt, score;
+    protected int limitCnt = 5, moveTileCnt, checkTileCnt, score, initValue = 1;
 
     protected Queue<TileData> nextTiles = new();
-
-    [SerializeField] protected List<ShowTile> showTiles;
-    [SerializeField] protected float tileMoveTime = 0.25f;
     protected int showTileNum = 0;
+    [SerializeField] protected List<ShowTile> showTiles;
+    [SerializeField] protected float tileMoveTime = 0.25f, boundValue = 0.1f;
 
     private Board board;
 
@@ -34,7 +33,7 @@ public class GameSystem : MonoBehaviour
     protected virtual void Start()
     {
         mainTile = Instantiate(mainTilePrefab, tilePos);
-        mainTile.Init(new TileData(CalcEnum.Plus, 1, tileMoveTime), MoveFinCheck);
+        mainTile.Init(new TileData(CalcEnum.Plus, initValue, tileMoveTime, boundValue), MoveFinCheck);
         
         score = 0;
         scoreTmp.SetText("0");

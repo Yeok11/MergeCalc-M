@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ReachMode : GameSystem
 {
     [SerializeField] private TextMeshProUGUI targetText;
-    private int target, targetRange = 20;
+    private int startValue, target, targetRange = 20;
 
     [SerializeField] private Image timer;
     private float leaveTime
@@ -22,6 +22,7 @@ public class ReachMode : GameSystem
 
     protected override void Start()
     {
+        initValue = startValue = 0;
         base.Start();
 
         dragEvent += () => Debug.Log("Drag Finish");
@@ -75,7 +76,7 @@ public class ReachMode : GameSystem
                     if (num > 3) break;
                 }
 
-                _tileDatas.Add(new((CalcEnum)calc, num, tileMoveTime));
+                _tileDatas.Add(new((CalcEnum)calc, num, tileMoveTime, boundValue));
             }
         }
 
@@ -107,7 +108,7 @@ public class ReachMode : GameSystem
         leaveTime += 10;
         AddScore(1);
 
-        targetRange = 20 + (score / 10 * 5);
+        targetRange = 10 + (score / 10 * 5);
         SetTarget();
     }
 }

@@ -66,13 +66,13 @@ public class Board : MonoBehaviour
         return false;
     }
 
-    private Vector2Int GetDestination(Vector2Int _pos, Dir _dir)
+    private Vector2Int GetDestination(Vector2Int _pos, Direction _dir)
     {
         int curX = _pos.x, curY = _pos.y;
 
         switch (_dir)
         {
-            case Dir.Up:    
+            case Direction.Up:    
                 for (int y = _pos.y - 1; y >= 0; --y)   
                 {
                     if (CheckDestination(_pos, new(_pos.x, y)) == false) break;
@@ -80,7 +80,7 @@ public class Board : MonoBehaviour
                 }
                 break;
 
-            case Dir.Down:  
+            case Direction.Down:  
                 for (int y = _pos.y + 1; y < 5; ++y)
                 { 
                     if (CheckDestination(_pos, new(_pos.x, y)) == false) break;
@@ -88,7 +88,7 @@ public class Board : MonoBehaviour
                 } 
                 break;
 
-            case Dir.Left:  
+            case Direction.Left:  
                 for (int x = _pos.x - 1; x >= 0; --x)   
                 {
                     if (CheckDestination(_pos, new(x, _pos.y)) == false) break;
@@ -96,7 +96,7 @@ public class Board : MonoBehaviour
                 } 
                 break;
             
-            case Dir.Right: 
+            case Direction.Right: 
                 for (int x = _pos.x + 1; x < 5; ++x)
                 { 
                     if (CheckDestination(_pos, new(x, _pos.y)) == false) break;
@@ -111,54 +111,52 @@ public class Board : MonoBehaviour
         return new Vector2Int(curX, curY);
     }
 
-    public void OnDragEvent(Dir _dir)
+    public void OnDragEvent(Direction _direction)
     {
         usedMerge = false;
 
-        int iStart = 0, iStep = 1, iEnd = 5;
-        if (_dir == Dir.Down || _dir == Dir.Right) 
+        int _iStart = 0, _iStep = 1, _iEnd = 5;
+        if (_direction == Direction.Down || _direction == Direction.Right) 
         { 
-            iStart = 4; 
-            iStep = iEnd = -1; 
+            _iStart = 4; 
+            _iStep = _iEnd = -1; 
         }
         
         List<MoveTile> _moveTiles = new();
-        bool verticalCheck = (_dir == Dir.Up || _dir == Dir.Down);
+        bool _isVertical = (_direction == Direction.Up || _direction == Direction.Down);
 
         for (int loop = 0; loop < 5; loop++)
         {
-            for (int i = iStart; i != iEnd; i += iStep)
+            for (int i = _iStart; i != _iEnd; i += _iStep)
             {
-                int x = verticalCheck ? loop : i;
-                int y = verticalCheck ? i : loop;
-
+                int x = _isVertical ? loop : i, y = _isVertical ? i : loop;
                 var tile = gameBoard[y, x];
+
                 if (tile == null) continue;
 
-                var dest = GetDestination(new(x, y), _dir);
+                var _dest = GetDestination(new(x, y), _direction);
 
-                if (verticalCheck ? dest.y == i : dest.x == i) continue;
+                if (_isVertical ? _dest.y == i : _dest.x == i) continue;
+
+                bool _mergedTile = false;
 
                 if (usedMerge)
                 {
                     if (tile == mainTile)
-                    {
-                        Debug.Log("Player Tile Merge with " + dest);
-                        mainTile.Merge(gameBoard[dest.y, dest.x], true);
-                    }
+                        mainTile.Merge(gameBoard[_dest.y, _dest.x]);
 
-                    if (gameBoard[dest.y, dest.x] == mainTile)
+                    if (gameBoard[_dest.y, _dest.x] == mainTile)
                     {
-                        Debug.Log("Player Tile Merge with " + new Vector2Int(y, x));
-                        mainTile.Merge(tile, false);
+                        _mergedTile = true;
+                        mainTile.Merge(tile);
                         (tile as SubTile).RemoveTile(mainTile);
                     }
                 }
 
-                tile.MoveSet(backTiles[dest.y * 5 + dest.x].transform);
+                tile.MoveSet(backTiles[_dest.y * 5 + _dest.x].transform, _direction, _mergedTile);
                 _moveTiles.Add(tile);
 
-                if (gameBoard[dest.y, dest.x] != mainTile) gameBoard[dest.y, dest.x] = tile;
+                if (gameBoard[_dest.y, _dest.x] != mainTile) gameBoard[_dest.y, _dest.x] = tile;
                 gameBoard[y, x] = null;
             }
         }

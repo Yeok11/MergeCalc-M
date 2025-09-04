@@ -15,6 +15,8 @@ public class Home : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI[] upTmpLine, middleTmpLine, underTmpLine;
 
+    private ModeSO GetMode() => modes[modeNum];
+
     private void Start()
     {
         GameData.Init();
@@ -28,15 +30,35 @@ public class Home : MonoBehaviour
         mainTile.transform.localPosition = Vector3.zero;
     }
 
-    public void ModeChange(Dir _dir)
+    public void ModeChange(Direction _dir)
     {
-        if (_dir == Dir.Left) modeNum--;
-        else if (_dir == Dir.Right) modeNum++;
+        if (_dir == Direction.Left) modeNum--;
+        else if (_dir == Direction.Right) modeNum++;
 
         if (modeNum == modes.Count) modeNum = 0;
         else if (modeNum < 0) modeNum += modes.Count;
 
         TitleUpdate();
+    }
+
+    public void ModeAction()
+    {
+        switch (GetMode().mode)
+        {
+            case Mode.Live:
+                SceneManager.LoadScene("Mode-Live");
+                break;
+            case Mode.Reach:
+                SceneManager.LoadScene("Mode-Reach");
+                break;
+            case Mode.Explain:
+                break;
+            case Mode.Setting:
+                break;
+            case Mode.Quit:
+                Application.Quit();
+                break;
+        }
     }
 
     #region Move
@@ -47,25 +69,25 @@ public class Home : MonoBehaviour
         mainTile.DOMove(basePos.position, _t);
     }
 
-    private void TileMove(Dir _dir)
+    private void TileMove(Direction _dir)
     {
         Sequence seq = DOTween.Sequence();
 
         switch (_dir)
         {
-            case Dir.Up:
+            case Direction.Up:
                 seq.Append(mainTile.DOMove(upPos.position, t));
                 seq.AppendCallback(ModeAction);
                 return;
 
-            case Dir.Left:
+            case Direction.Left:
                 seq.Append(mainTile.DOMove(leftPos.position, t));
-                seq.AppendCallback(() => ModeChange(Dir.Left));
+                seq.AppendCallback(() => ModeChange(Direction.Left));
                 break;
 
-            case Dir.Right:
+            case Direction.Right:
                 seq.Append(mainTile.DOMove(rightPos.position, t));
-                seq.AppendCallback(() => ModeChange(Dir.Right));
+                seq.AppendCallback(() => ModeChange(Direction.Right));
                 break;
         }
 
@@ -74,8 +96,7 @@ public class Home : MonoBehaviour
     }
     #endregion
 
-    private ModeSO GetMode() => modes[modeNum];
-
+    #region Text
     public void TitleUpdate()
     {
         var _mode = GetMode();
@@ -112,24 +133,5 @@ public class Home : MonoBehaviour
             else tmp[i].SetText(_txt[i].ToString());
         }
     }
-
-    public void ModeAction()
-    {
-        switch (GetMode().mode)
-        {
-            case Mode.Live:
-                SceneManager.LoadScene("Mode-Live");
-                break;
-            case Mode.Reach:
-                SceneManager.LoadScene("Mode-Reach");
-                break;
-            case Mode.Explain:
-                break;
-            case Mode.Setting:
-                break;
-            case Mode.Quit:
-                Application.Quit();
-                break;
-        }
-    }
+    #endregion
 }

@@ -14,7 +14,6 @@ public class Tile : MonoBehaviour
     public virtual void Init(TileData _tileData)
     {
         data = _tileData;
-
         TextUpdate();
     }
 

@@ -2665,7 +2665,7 @@ MonoBehaviour:
   - {fileID: 757781850}
   - {fileID: 1755626139}
   - {fileID: 1568679795}
-  tileMoveTime: 0.25
+  tileMoveTime: 0.2
   targetText: {fileID: 1734048532}
   timer: {fileID: 174942101}
 --- !u!1001 &1498353696

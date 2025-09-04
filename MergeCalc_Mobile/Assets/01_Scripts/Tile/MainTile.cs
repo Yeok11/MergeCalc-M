@@ -2,8 +2,8 @@ using UnityEngine.Events;
 
 public class MainTile : MoveTile
 {
-    internal MoveTile mergeTile;
-    internal UnityAction<int> mergeEvent;
+    private MoveTile mergeTile;
+    public event UnityAction<int> mergeEvent;
 
     public int GetValue() => data.num;
 
@@ -13,27 +13,18 @@ public class MainTile : MoveTile
 
         moveFin += TextUpdate;
         moveFin += MergeUpdate;
+
+        mergeEvent += (int _n) => TileAnime();
     }
 
-    public void AddMoveEvent(UnityAction _action)
-    {
-        moveFin += _action;
-    }
+    public override void TextUpdate() => tmp.text = data.num.ToString();
 
-    public override void TextUpdate()
+    public void Merge(MoveTile _tile)
     {
-        tmp.text = data.num.ToString();
-    }
-
-    public void Merge(MoveTile _tile, bool _newMergeTile)
-    {
-        UnityEngine.Debug.Log("Data Merge");
-
         data.num = Calculator.Calc(_tile.data, data.num);
 
         mergeEvent?.Invoke(data.num);
-
-        if (_newMergeTile) mergeTile = _tile;
+        mergeTile ??= _tile;
     }
 
     private void MergeUpdate()
@@ -43,5 +34,12 @@ public class MainTile : MoveTile
             TilePooling.Instance.Push(mergeTile);
             mergeTile = null;
         }
+    }
+
+    public override void Move()
+    {
+        isMerging = mergeTile;
+        base.Move();
+        isMerging = false;
     }
 }

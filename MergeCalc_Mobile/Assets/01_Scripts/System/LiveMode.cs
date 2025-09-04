@@ -64,7 +64,7 @@ public class LiveMode : GameSystem
             {
                 if (calc > 1 && num == 1) continue;
 
-                _tileDatas.Add(new((CalcEnum)calc, num, tileMoveTime));
+                _tileDatas.Add(new((CalcEnum)calc, num, tileMoveTime, boundValue));
             }
         }
 

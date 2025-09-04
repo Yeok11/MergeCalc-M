@@ -6,27 +6,71 @@ public class MoveTile : Tile
 {
     protected UnityAction moveFin;
     protected Transform destination;
+    protected Direction direction;
 
-    private float t;
-    
+    private float time, bound, animeValue = 0.8f;
+    protected bool isMerging;
+
     public virtual void Init(Tile _tile, UnityAction _ua) => Init(_tile.data, _ua);
 
     public virtual void Init(TileData _tileData, UnityAction _moveFin)
     {
         base.Init(_tileData);
 
-        t = _tileData.time;
+        time = _tileData.time;
         moveFin = _moveFin;
+        bound = _tileData.bound;
+        isMerging = false;  
+
         gameObject.SetActive(true);
     }
 
-    public void MoveSet(Transform _trm)
+    public void MoveSet(Transform _trm, Direction _direction, bool _merge)
     {
         destination = _trm;
+        direction = _direction;
+        isMerging = _merge;
     }
 
-    public void Move()
+    protected void TileAnime()
     {
-        transform.DOMove(destination.position, t).OnComplete(() => moveFin?.Invoke());
+        Sequence seq = DOTween.Sequence();
+
+        seq.Append(transform.DOScale(animeValue, 0.1f));
+        seq.Append(transform.DOScale(1, 0.2f));
+    }
+
+    public virtual void Move()
+    {
+        Sequence seq = DOTween.Sequence();
+
+        Vector3 _addPos = new(0, bound);
+        switch (direction)
+        {
+            case Direction.Down:  _addPos = new(0, -bound);
+                break;
+
+            case Direction.Left:  _addPos = new(-bound, 0);
+                break;
+
+            case Direction.Right: _addPos = new(bound, 0);
+                break;
+        }
+
+
+        float _animeTime = time;
+
+        if (isMerging)
+        {
+            transform.localScale = new(animeValue, animeValue);
+        }
+        else
+        {
+            seq.Append(transform.DOMove(destination.position + _addPos, _animeTime * 0.7f));
+            _animeTime *= 0.3f;
+        }
+
+        seq.Append(transform.DOMove(destination.position, _animeTime));
+        seq.AppendCallback(() => moveFin?.Invoke());
     }
 }

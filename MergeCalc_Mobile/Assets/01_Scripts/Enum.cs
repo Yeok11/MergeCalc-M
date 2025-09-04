@@ -6,7 +6,7 @@ public enum CalcEnum
     Divide
 }
 
-public enum Dir
+public enum Direction
 {
     Up = 0,
     Down,

@@ -2589,7 +2589,8 @@ MonoBehaviour:
   - {fileID: 757781850}
   - {fileID: 1755626139}
   - {fileID: 1568679795}
-  tileMoveTime: 0.25
+  tileMoveTime: 0.2
+  boundValue: 0.1
   leftText: {fileID: 1765397938}
   rangeText: {fileID: 1734048532}
 --- !u!1001 &1498353696
