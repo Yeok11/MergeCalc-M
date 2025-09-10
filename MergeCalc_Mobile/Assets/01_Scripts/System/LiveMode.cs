@@ -12,6 +12,7 @@ public class LiveMode : GameSystem
 
     protected override void Start()
     {
+        Debug.Log("game Start");
         base.Start();
 
         dragEvent += () => Debug.Log("Drag Finish");
@@ -22,6 +23,7 @@ public class LiveMode : GameSystem
         SetNextStage();
 
         stageClearEvent += () => AddScore(5);
+        GameData.canDrag = true;
     }
 
     public void DeadCheck()
@@ -97,6 +99,10 @@ public class LiveMode : GameSystem
         {
             GameData.canDrag = false;
             Invoke("SetNextStage", 1.5f);
+        }
+        else
+        {
+            GameData.canDrag = true;
         }
     }
 }

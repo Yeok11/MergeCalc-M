@@ -11,13 +11,12 @@ public class MainTile : MoveTile
     {
         base.Init(_tileData, _moveFin);
 
-        moveFin += TextUpdate;
         moveFin += MergeUpdate;
 
         mergeEvent += (int _n) => TileAnime();
     }
 
-    public override void TextUpdate() => tmp.text = data.num.ToString();
+    protected override void TextUpdate() => tmp.text = data.num.ToString();
 
     public void Merge(MoveTile _tile)
     {
@@ -27,8 +26,10 @@ public class MainTile : MoveTile
         mergeTile ??= _tile;
     }
 
-    private void MergeUpdate()
+    public void MergeUpdate()
     {
+        TextUpdate();
+
         if (mergeTile != null)
         {
             TilePooling.Instance.Push(mergeTile);

@@ -17,7 +17,7 @@ public class Tile : MonoBehaviour
         TextUpdate();
     }
 
-    public virtual void TextUpdate()
+    protected virtual void TextUpdate()
     {
         string str = "";
         switch (data.calc)

@@ -4,8 +4,7 @@ public class SubTile : MoveTile
     {
         moveFin += () =>
         {
-            TilePooling.Instance.Push(this);
-            _mTile.TextUpdate();
+            _mTile.MergeUpdate();
         };
     }
 }

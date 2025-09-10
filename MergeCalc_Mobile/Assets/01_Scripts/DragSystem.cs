@@ -38,5 +38,12 @@ public class DragSystem : MonoBehaviour
                 }
             }
         }
+
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.W)) dragEvent?.Invoke(Direction.Up);
+        else if (Input.GetKeyDown(KeyCode.A)) dragEvent?.Invoke(Direction.Left);
+        else if (Input.GetKeyDown(KeyCode.S)) dragEvent?.Invoke(Direction.Down);
+        else if (Input.GetKeyDown(KeyCode.D)) dragEvent?.Invoke(Direction.Right);
+#endif
     }
 }

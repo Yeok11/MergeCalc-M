@@ -46,9 +46,11 @@ public class Home : MonoBehaviour
         switch (GetMode().mode)
         {
             case Mode.Live:
+                GameData.canDrag = false;
                 SceneManager.LoadScene("Mode-Live");
                 break;
             case Mode.Reach:
+                GameData.canDrag = false;
                 SceneManager.LoadScene("Mode-Reach");
                 break;
             case Mode.Explain:

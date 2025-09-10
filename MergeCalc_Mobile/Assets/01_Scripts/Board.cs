@@ -21,17 +21,13 @@ public class Board : MonoBehaviour
             backTiles[i] = groupPos.GetChild(i);
             canUseTiles.Add(backTiles[i]);
         }
-    }
 
-    private void Start()
-    {
         dragSystem.dragEvent += OnDragEvent;
     }
 
     public void Init(MainTile _tile)
     {
-        Transform trm = backTiles[12];
-        canUseTiles.Remove(trm);
+        canUseTiles.Remove(backTiles[12]);
 
         mainTile = _tile;
         gameBoard[2, 2] = _tile;
@@ -54,7 +50,7 @@ public class Board : MonoBehaviour
     private bool CheckDestination(Vector2Int _startPos, Vector2Int _checkPos)
     {
         if (gameBoard[_checkPos.y, _checkPos.x] == null) return true;
-
+        
         if (usedMerge) return false;
 
         if (gameBoard[_startPos.y, _startPos.x] is MainTile || gameBoard[_checkPos.y, _checkPos.x] is MainTile)
@@ -113,6 +109,8 @@ public class Board : MonoBehaviour
 
     public void OnDragEvent(Direction _direction)
     {
+        GameData.canDrag = false;
+
         usedMerge = false;
 
         int _iStart = 0, _iStep = 1, _iEnd = 5;
@@ -162,7 +160,13 @@ public class Board : MonoBehaviour
         }
 
         mainTile.transform.SetAsLastSibling();
-        GameSystem.Instance.Move(_moveTiles);
+
+        if(_moveTiles.Count != 0)
+            GameSystem.Instance.Move(_moveTiles);
+        else
+        {
+            GameData.canDrag = true;
+        }
     }
     #endregion
 }

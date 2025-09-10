@@ -20,9 +20,12 @@ public class MoveTile : Tile
         time = _tileData.time;
         moveFin = _moveFin;
         bound = _tileData.bound;
-        isMerging = false;  
+        isMerging = false;
 
+        transform.localScale = new(0.8f, 0.8f, 0.8f);
         gameObject.SetActive(true);
+
+        transform.DOScale(Vector3.one, 0.2f);
     }
 
     public void MoveSet(Transform _trm, Direction _direction, bool _merge)
@@ -42,8 +45,6 @@ public class MoveTile : Tile
 
     public virtual void Move()
     {
-        Sequence seq = DOTween.Sequence();
-
         Vector3 _addPos = new(0, bound);
         switch (direction)
         {
@@ -57,8 +58,8 @@ public class MoveTile : Tile
                 break;
         }
 
-
         float _animeTime = time;
+        Sequence seq = DOTween.Sequence();
 
         if (isMerging)
         {

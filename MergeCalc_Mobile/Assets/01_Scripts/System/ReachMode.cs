@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ReachMode : GameSystem
 {
     [SerializeField] private TextMeshProUGUI targetText;
-    private int startValue, target, targetRange = 20;
+    private int target, targetRange = 20;
 
     [SerializeField] private Image timer;
     private float leaveTime
@@ -22,7 +22,7 @@ public class ReachMode : GameSystem
 
     protected override void Start()
     {
-        initValue = startValue = 0;
+        initValue = 0;
         base.Start();
 
         dragEvent += () => Debug.Log("Drag Finish");
@@ -32,15 +32,18 @@ public class ReachMode : GameSystem
         mainTile.mergeEvent += TargetCheck;
 
         SetTarget();
-        SetNextTiles();
 
         leaveTime = gameTime;
         timer.fillAmount = 1;
+
+        SetNextTiles();
+        GameData.canDrag = true;
     }
 
     private void NextTileCheck()
     {
         if (showTiles.Count > nextTiles.Count) SetNextTiles();
+        GameData.canDrag = true;
     }
 
     private void DeadCheck()

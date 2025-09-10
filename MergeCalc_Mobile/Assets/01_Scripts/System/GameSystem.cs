@@ -38,8 +38,6 @@ public class GameSystem : MonoBehaviour
         score = 0;
         scoreTmp.SetText("0");
 
-        GameData.canDrag = true;
-        
         board.Init(mainTile);
     }
 
@@ -49,9 +47,7 @@ public class GameSystem : MonoBehaviour
         scoreTmp.SetText(score.ToString());
     }
 
-    public virtual void SetNextTiles()
-    {
-    }
+    public virtual void SetNextTiles() { }
 
     protected void UpdateUiTiles()
     {
@@ -64,8 +60,6 @@ public class GameSystem : MonoBehaviour
                 tile.Init(nextTiles.Dequeue());
             }
         }
-
-        GameData.canDrag = true;
     }
 
     protected virtual void Spawn()
@@ -83,18 +77,18 @@ public class GameSystem : MonoBehaviour
 
     private void MoveFinCheck()
     {
-        if (checkTileCnt++ == moveTileCnt)
+        if (++checkTileCnt == moveTileCnt)
         {
             Spawn();
             UpdateUiTiles();
-            dragEvent?.Invoke();
+            dragEvent.Invoke();
         }
     }
 
     public void Move(List<MoveTile> _moveTiles)
     {
         moveTileCnt = _moveTiles.Count;
-        checkTileCnt = 1;
+        checkTileCnt = 0;
 
         foreach (MoveTile item in _moveTiles) item.Move();
     }
