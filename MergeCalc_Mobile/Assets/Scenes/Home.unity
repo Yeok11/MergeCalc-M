@@ -3653,7 +3653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c160749120e07e4aa014e0329dee4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitive: 50
+  sensitive: 70
 --- !u!1001 &1989303295
 PrefabInstance:
   m_ObjectHideFlags: 0

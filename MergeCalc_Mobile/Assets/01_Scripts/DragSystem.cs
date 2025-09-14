@@ -24,15 +24,11 @@ public class DragSystem : MonoBehaviour
 
                 if(isHorizontal)
                 {
-                    if (Mathf.Abs(pos.x) > sensitive) Debug.Log("좌우 드래그");
-
                     if (pos.x < -sensitive) dragEvent?.Invoke(Direction.Left);
                     else if (pos.x > sensitive) dragEvent?.Invoke(Direction.Right);
                 }
                 else
                 {
-                    if (Mathf.Abs(pos.y) > sensitive) Debug.Log("상하 드래그");
-
                     if (pos.y < -sensitive) dragEvent?.Invoke(Direction.Down);
                     else if (pos.y > sensitive) dragEvent?.Invoke(Direction.Up);
                 }

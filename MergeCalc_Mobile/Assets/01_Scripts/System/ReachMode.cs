@@ -25,7 +25,6 @@ public class ReachMode : GameSystem
         initValue = 0;
         base.Start();
 
-        dragEvent += () => Debug.Log("Drag Finish");
         dragEvent += NextTileCheck;
         dragEvent += DeadCheck;
 
@@ -69,18 +68,18 @@ public class ReachMode : GameSystem
     {
         List<TileData> _tileDatas = new();
 
-        for (int calc = 0; calc < 4; calc++)
-        {
-            for (int num = 1; num <= 5; num++)
-            {
-                if (calc > 1)
-                {
-                    if (num == 1) continue;
-                    if (num > 3) break;
-                }
+        int pMax = 3 + (score / 10 * 3), mMax = 1 + (score + 5) / 10;
 
-                _tileDatas.Add(new((CalcEnum)calc, num, tileMoveTime, boundValue));
-            }
+        for (int num = 1; num <= pMax; num++)
+        {
+            _tileDatas.Add(new(CalcEnum.Plus, num, tileMoveTime, boundValue));
+            _tileDatas.Add(new(CalcEnum.Minus, num, tileMoveTime, boundValue));
+        }
+
+        for (int num = 2; num <= mMax; num++)
+        {
+            _tileDatas.Add(new(CalcEnum.Multiple, num, tileMoveTime, boundValue));
+            _tileDatas.Add(new(CalcEnum.Divide, num, tileMoveTime, boundValue));
         }
 
         while (_tileDatas.Count != 0)
@@ -95,6 +94,8 @@ public class ReachMode : GameSystem
 
     private void SetTarget()
     {
+        targetRange = 5 + (score / 10 * 3);
+
         do
         {
             target = Random.Range(-targetRange, targetRange+1);
@@ -110,8 +111,6 @@ public class ReachMode : GameSystem
 
         leaveTime += 10;
         AddScore(1);
-
-        targetRange = 10 + (score / 10 * 5);
         SetTarget();
     }
 }
