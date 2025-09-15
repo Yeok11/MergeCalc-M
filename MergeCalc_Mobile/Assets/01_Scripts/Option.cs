@@ -66,6 +66,6 @@ public class Option : MonoBehaviour
             canvas.alpha += _addValue;
         }
 
-        _endAction?.Invoke();
+        if(_open == isOpen) _endAction?.Invoke();
     }
 }
