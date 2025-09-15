@@ -41,6 +41,12 @@ public class GameSystem : MonoBehaviour
         board.Init(mainTile);
     }
 
+    public virtual void GameOver()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Game Over");
+    }
+
+    #region Tile
     protected virtual void AddScore(int _value)
     {
         score += _value;
@@ -74,7 +80,9 @@ public class GameSystem : MonoBehaviour
 
         UpdateUiTiles();
     }
+    #endregion
 
+    #region Move
     private void MoveFinCheck()
     {
         if (++checkTileCnt == moveTileCnt)
@@ -92,4 +100,24 @@ public class GameSystem : MonoBehaviour
 
         foreach (MoveTile item in _moveTiles) item.Move();
     }
+    #endregion
+
+    #region Option or Quit
+    protected virtual void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) Option.Instance.Open();
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause) Option.Instance.Open();
+    }
+
+    private void OnApplicationQuit()
+    {
+        ApplicationQuit();
+    }
+
+    protected virtual void ApplicationQuit() { }
+    #endregion
 }

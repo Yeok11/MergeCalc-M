@@ -20,6 +20,7 @@ public class Home : MonoBehaviour
     private void Start()
     {
         GameData.Init();
+        Time.timeScale = 1;
 
         dragEvent.dragEvent += TileMove;
 

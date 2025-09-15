@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ReachMode : GameSystem
 {
     [SerializeField] private TextMeshProUGUI targetText;
-    private int target, targetRange = 20;
+    private int target;
 
     [SerializeField] private Image timer;
     private float leaveTime
@@ -47,19 +47,20 @@ public class ReachMode : GameSystem
 
     private void DeadCheck()
     {
-        if (0 >= leaveTime)
-        {
-            Debug.Log("is Dead");
-            GameData.canDrag = false;
-
-            GameData.DataUpdate(score, Mode.Reach);
-
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Game Over");
-        }
+        if (0 >= leaveTime) GameOver();
     }
 
-    private void Update()
+    public override void GameOver()
     {
+        GameData.canDrag = false;
+        GameData.DataUpdate(score, Mode.Reach);
+        base.GameOver();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
         leaveTime -= Time.deltaTime;
         timer.fillAmount = leaveTime / gameTime;
     }
@@ -94,11 +95,11 @@ public class ReachMode : GameSystem
 
     private void SetTarget()
     {
-        targetRange = 5 + (score / 10 * 3);
+        int _targetRange = 5 + (score / 10 * 3);
 
         do
         {
-            target = Random.Range(-targetRange, targetRange+1);
+            target = Random.Range(-_targetRange, _targetRange + 1);
         }
         while (target == mainTile.GetValue());
 
@@ -112,5 +113,10 @@ public class ReachMode : GameSystem
         leaveTime += 10;
         AddScore(1);
         SetTarget();
+    }
+
+    protected override void ApplicationQuit()
+    {
+        GameData.DataUpdate(score, Mode.Reach);
     }
 }

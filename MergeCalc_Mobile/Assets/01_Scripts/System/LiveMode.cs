@@ -12,12 +12,9 @@ public class LiveMode : GameSystem
 
     protected override void Start()
     {
-        Debug.Log("game Start");
         base.Start();
 
-        dragEvent += () => Debug.Log("Drag Finish");
         dragEvent += DeadCheck;
-
         mainTile.mergeEvent += (int _i) => AddScore(1);
 
         SetNextStage();
@@ -26,25 +23,22 @@ public class LiveMode : GameSystem
         GameData.canDrag = true;
     }
 
-    public void DeadCheck()
+    private void DeadCheck()
     {
         int n = mainTile.GetValue();
 
-        if (n > range || n < -range)
-        {
-            Debug.Log("is Dead");
-            GameData.canDrag = false;
+        if (n > range || n < -range) GameOver();
+    }
 
-            GameData.DataUpdate(score, Mode.Live);
-
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Game Over");
-        }
+    public override void GameOver()
+    {
+        GameData.canDrag = false;
+        GameData.DataUpdate(score, Mode.Live);
+        base.GameOver();
     }
 
     private void SetNextStage()
     {
-        Debug.Log("Set Next Stage");
-
         stageClearEvent?.Invoke();
 
         limitCnt = 5 + (stageNum++ / 2);
@@ -65,7 +59,6 @@ public class LiveMode : GameSystem
             for (int num = 1; num <= limitCnt; num++)
             {
                 if (calc > 1 && num == 1) continue;
-
                 _tileDatas.Add(new((CalcEnum)calc, num, tileMoveTime, boundValue));
             }
         }
@@ -86,7 +79,6 @@ public class LiveMode : GameSystem
     protected override void Spawn()
     {
         base.Spawn();
-
         cnt--;
         LeftMessageUpdate();
     }
@@ -101,8 +93,11 @@ public class LiveMode : GameSystem
             Invoke("SetNextStage", 1.5f);
         }
         else
-        {
             GameData.canDrag = true;
-        }
+    }
+
+    protected override void ApplicationQuit()
+    {
+        GameData.DataUpdate(score, Mode.Live);
     }
 }
