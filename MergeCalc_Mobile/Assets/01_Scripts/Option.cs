@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,10 +7,9 @@ public class Option : MonoBehaviour
 
     [SerializeField] private CanvasGroup canvas;
     [SerializeField] private GameObject blackView;
+    [SerializeField] private bool timeScaleChange = true;
 
-    [Header("Normal Button")]
-    [SerializeField] private Button continueButton;
-    [SerializeField] private Button giveUpButton;
+    [SerializeField] private Button[] buttons;
 
     private UnityAction<bool> buttonUseable;
     private bool isOpen = false;
@@ -24,11 +22,15 @@ public class Option : MonoBehaviour
         canvas.gameObject.SetActive(false);
         blackView.SetActive(false);
 
-        if (continueButton != null) buttonUseable += (bool _value) => continueButton.useAble = _value;
-        if (giveUpButton != null) buttonUseable += (bool _value) => giveUpButton.useAble = _value;
+        foreach (var _btn in buttons)
+        {
+            buttonUseable += (bool _value) => _btn.useAble = _value;
+        }
 
-        if (continueButton != null) continueButton.clickEvent.AddListener(() => buttonUseable(false));
-        if (giveUpButton != null) giveUpButton.clickEvent.AddListener(() => buttonUseable(false));
+        foreach (var _btn in buttons)
+        {
+            _btn.clickEvent.AddListener(() => buttonUseable(false));
+        }
 
         buttonUseable?.Invoke(false);
     }
@@ -41,7 +43,7 @@ public class Option : MonoBehaviour
         canvas.gameObject.SetActive(true);
         blackView.SetActive(true);
 
-        Time.timeScale = 0;
+        if (timeScaleChange) Time.timeScale = 0;
         CanvasFade.Instance.FadeCanvas(canvas, true, 0.5f, () =>
         {
             if (isOpen) buttonUseable?.Invoke(true); 
@@ -51,7 +53,7 @@ public class Option : MonoBehaviour
     public void Close()
     {
         isOpen = false;
-        Time.timeScale = 1;
+        if (timeScaleChange) Time.timeScale = 1;
 
         buttonUseable?.Invoke(false);
         CanvasFade.Instance.FadeCanvas(canvas, false, 0.5f, () =>

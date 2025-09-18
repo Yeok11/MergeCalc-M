@@ -14,8 +14,13 @@ public class Home : MonoBehaviour
     private int modeNum = 0;
 
     [SerializeField] private TextMeshProUGUI[] upTmpLine, middleTmpLine, underTmpLine;
+
+    [Header("Panel")]
     [SerializeField] private CanvasGroup exitPanel;
     private bool openExitPanel;
+
+    [SerializeField] private ExplainPanel explainPanel;
+    [SerializeField] private GameObject blackView;
 
     private ModeSO GetMode() => modes[modeNum];
 
@@ -31,21 +36,30 @@ public class Home : MonoBehaviour
         TitleUpdate();
 
         mainTile.transform.localPosition = Vector3.zero;
+        
         openExitPanel = false;
+        exitPanel.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            openExitPanel = !openExitPanel;
-            exitPanel.gameObject.SetActive(true);
+        if (Input.GetKeyDown(KeyCode.Escape)) ExitPanelAble();
+    }
 
-            CanvasFade.Instance.FadeCanvas(exitPanel, openExitPanel, 0.01f, () =>
+    public void ExitPanelAble()
+    {
+        openExitPanel = !openExitPanel;
+        exitPanel.gameObject.SetActive(true);
+        blackView.SetActive(true);
+
+        CanvasFade.Instance.FadeCanvas(exitPanel, openExitPanel, 0.01f, () =>
+        {
+            if (!openExitPanel)
             {
-                if (!openExitPanel) exitPanel.gameObject.SetActive(false);
-            });
-        }
+                exitPanel.gameObject.SetActive(false);
+                blackView.SetActive(false);
+            }
+        });
     }
 
     #region Mode
@@ -60,18 +74,23 @@ public class Home : MonoBehaviour
         TitleUpdate();
     }
 
+    public void Quit() => Application.Quit();
+
+    public void SceneLoad() => SceneManager.LoadScene("Mode-" + GetMode().mode);
+
     public void ModeAction()
     {
-        switch (GetMode().mode)
+        var _mode = GetMode().mode;
+
+        switch (_mode)
         {
             case Mode.Live:
-                GameData.canDrag = false;
-                SceneManager.LoadScene("Mode-Live");
-                break;
-
             case Mode.Reach:
                 GameData.canDrag = false;
-                SceneManager.LoadScene("Mode-Reach");
+                if (GameData.GetModeExplain(_mode))
+                    explainPanel.Open(GetMode());
+                else
+                    SceneManager.LoadScene("Mode-" + _mode);
                 break;
 
             case Mode.Explain:
@@ -79,11 +98,10 @@ public class Home : MonoBehaviour
 
             case Mode.Setting:
                 Option.Instance.Open();
-
                 break;
 
             case Mode.Quit:
-                Application.Quit();
+                Quit();
                 break;
         }
     }

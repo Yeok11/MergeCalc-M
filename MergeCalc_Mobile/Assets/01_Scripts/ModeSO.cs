@@ -6,4 +6,6 @@ public class ModeSO : ScriptableObject
     public Mode mode;
     public string firLineMes, secLineMes;
     public bool showScore = false;
+    [TextArea(3,10)]
+    public string explain;
 }

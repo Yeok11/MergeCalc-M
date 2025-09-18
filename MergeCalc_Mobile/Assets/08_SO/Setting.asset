@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Setting
   m_EditorClassIdentifier: 
   mode: 3
-  firLineMes: "\uC124\uC815"
+  firLineMes: " \uC124 \uC815"
   secLineMes: 
   showScore: 0
