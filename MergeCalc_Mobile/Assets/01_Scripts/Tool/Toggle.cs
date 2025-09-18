@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class Toggle : Button
@@ -8,6 +9,8 @@ public class Toggle : Button
     [SerializeField] protected Image bgTarget;
     [SerializeField] private float offXValue = -111.9f;
     [SerializeField] protected Color onBGColor = Color.white, offBGColor = Color.white;
+
+    public UnityEvent<bool> toggleEvent;
 
     protected Sequence btnSeq;
     protected bool value;
@@ -21,20 +24,28 @@ public class Toggle : Button
 
     protected virtual void Start()
     {
-        btnTarget.transform.localPosition = new(value ? offXValue : 0, 0, 0);
-        bgTarget.color = value ? offBGColor : onBGColor;
+        btnTarget.transform.localPosition = new(value ? 0 : offXValue, 0, 0);
+        bgTarget.color = value ? onBGColor : offBGColor;
     }
 
     protected override void ButtonAnime()
     {
         base.ButtonAnime();
+        ToggleValue();
+        ToggleAnime();
+    }
 
+    protected virtual void ToggleValue() => value = !value;
+
+    protected virtual void ToggleAnime()
+    {
         if (btnSeq != null && btnSeq.IsActive()) btnSeq.Kill(true);
 
-        bgTarget.color = value ? offBGColor : onBGColor;
+        bgTarget.color = value ? onBGColor : offBGColor;
 
         btnSeq = DOTween.Sequence();
         btnSeq.SetUpdate(true);
-        btnSeq.Append(btnTarget.transform.DOLocalMoveX(value ? offXValue : 0, 0.1f));
+        btnSeq.Append(btnTarget.transform.DOLocalMoveX(value ? 0 : offXValue, 0.1f));
+        btnSeq.OnComplete(() => toggleEvent?.Invoke(value));
     }
 }

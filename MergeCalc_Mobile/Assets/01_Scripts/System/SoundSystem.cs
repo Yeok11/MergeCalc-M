@@ -16,6 +16,8 @@ public class SoundSystem : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
             Instance = this;
+
+            GameData.InitSound();
         }
         else 
             Destroy(gameObject);
@@ -34,7 +36,6 @@ public class SoundSystem : MonoBehaviour
                 effectSoundDic.Add(_item.audioType, _item.clip);
         }
 
-        GameData.SoundInit();
         PlayBgm();
     }
 

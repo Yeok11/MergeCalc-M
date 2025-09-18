@@ -5,7 +5,7 @@ public static class GameData
     #region Sound
     private static bool bgmMute = false, effectMute = false;
 
-    public static void SoundInit()
+    public static void InitSound()
     {
         bgmMute = bool.Parse(PlayerPrefs.GetString(AudioType.Bgm.ToString(), "false"));
         effectMute = bool.Parse(PlayerPrefs.GetString(AudioType.Effect.ToString(), "false"));
@@ -13,23 +13,20 @@ public static class GameData
 
     public static bool GetMuteValue(AudioType _type)
     {
-        if (_type == AudioType.Bgm) return bgmMute;
-        else return effectMute;
+        if (_type == AudioType.Bgm) 
+            return bgmMute;
+        else
+            return effectMute;
     }
 
     public static void SetMuteValue(AudioType _type, bool _value)
     {
-        if (_type == AudioType.Bgm)
-        {
+        if (_type == AudioType.Bgm) 
             bgmMute = _value;
-        }
         else if (_type == AudioType.Effect)
-        {
             effectMute = _value;
-        }
 
         PlayerPrefs.SetString(_type.ToString(), _value.ToString());
-        PlayerPrefs.Save();
     }
     #endregion
 
@@ -50,7 +47,6 @@ public static class GameData
         if(GetHScore() < _score)
         {
             PlayerPrefs.SetInt(scoreString + _mode, _score);
-            PlayerPrefs.Save();
         }
     }
     #endregion
@@ -59,5 +55,36 @@ public static class GameData
     public static bool canDrag;
 
     public static void InitDrag() => canDrag = true;
+    #endregion
+
+    #region Mode
+    private const string explainKey = "Explain";
+
+    public static bool GetModeExplain(Mode _mode)
+    {
+        switch (_mode)
+        {
+            case Mode.Live:
+            case Mode.Reach:
+                return bool.Parse(PlayerPrefs.GetString(_mode + explainKey, "true"));
+        }
+
+        Debug.LogError($"{_mode} doesn't have Mode Explain");
+        return false;
+    }
+
+    public static void SetModeExplain(Mode _mode, bool _value)
+    {
+        switch (_mode)
+        {
+            case Mode.Live:
+            case Mode.Reach:
+                PlayerPrefs.SetString(_mode + explainKey, _value.ToString());
+                break;
+            default:
+                Debug.LogError($"{_mode} doesn't have Mode Explain");
+                break;
+        }
+    }
     #endregion
 }

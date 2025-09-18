@@ -59,4 +59,9 @@ public class Option : MonoBehaviour
             if (isOpen) buttonUseable?.Invoke(false);
         });
     }
+
+    private void OnDestroy()
+    {
+        PlayerPrefs.Save();
+    }
 }

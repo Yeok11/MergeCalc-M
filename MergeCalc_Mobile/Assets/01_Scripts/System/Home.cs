@@ -34,6 +34,21 @@ public class Home : MonoBehaviour
         openExitPanel = false;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            openExitPanel = !openExitPanel;
+            exitPanel.gameObject.SetActive(true);
+
+            CanvasFade.Instance.FadeCanvas(exitPanel, openExitPanel, 0.01f, () =>
+            {
+                if (!openExitPanel) exitPanel.gameObject.SetActive(false);
+            });
+        }
+    }
+
+    #region Mode
     public void ModeChange(Direction _dir)
     {
         if (_dir == Direction.Left) modeNum--;
@@ -72,20 +87,7 @@ public class Home : MonoBehaviour
                 break;
         }
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            openExitPanel = !openExitPanel;
-            exitPanel.gameObject.SetActive(true);
-
-            CanvasFade.Instance.FadeCanvas(exitPanel, openExitPanel, 0.01f, () =>
-                {
-                    if(!openExitPanel) exitPanel.gameObject.SetActive(false);
-                });
-        }
-    }
+    #endregion
 
     #region Move
     private void MoveToBase() => MoveToBase(0);

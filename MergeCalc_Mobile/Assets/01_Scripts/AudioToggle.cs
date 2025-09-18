@@ -1,5 +1,4 @@
 using UnityEngine;
-using DG.Tweening;
 
 public class AudioToggle : Toggle
 {
@@ -7,16 +6,15 @@ public class AudioToggle : Toggle
 
     protected override void Start()
     {
-        value = GameData.GetMuteValue(type);
+        value = !GameData.GetMuteValue(type);
         base.Start();
+
+        toggleEvent.AddListener((bool _b) => SoundSystem.Instance.SoundStateChange(type, !_b));
+        toggleEvent.AddListener((bool _b) => GameData.SetMuteValue(type, _b));
     }
 
     protected override void ButtonAnime()
     {
-        value = !GameData.GetMuteValue(type);
         base.ButtonAnime();
-
-        SoundSystem.Instance.SoundStateChange(type, value);
-        btnSeq.OnComplete(() => GameData.SetMuteValue(type, value));
     }
 }
