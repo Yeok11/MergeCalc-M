@@ -5,33 +5,32 @@ using UnityEngine.Events;
 public class Option : MonoBehaviour
 {
     public static Option Instance;
+
     [SerializeField] private CanvasGroup canvas;
     [SerializeField] private GameObject blackView;
 
-    [SerializeField] private Button continueButton, titleButton;
+    [Header("Normal Button")]
+    [SerializeField] private Button continueButton;
+    [SerializeField] private Button giveUpButton;
+
+    private UnityAction<bool> buttonUseable;
     private bool isOpen = false;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
-    }
 
-    private void Start()
-    {
-        gameObject.SetActive(false);
+        canvas.gameObject.SetActive(false);
         blackView.SetActive(false);
 
-        continueButton.clickEvent.AddListener(() => ButtonUseAble(false));
-        titleButton.clickEvent.AddListener(() => ButtonUseAble(false));
+        if (continueButton != null) buttonUseable += (bool _value) => continueButton.useAble = _value;
+        if (giveUpButton != null) buttonUseable += (bool _value) => giveUpButton.useAble = _value;
 
-        ButtonUseAble(false);
-    }
+        if (continueButton != null) continueButton.clickEvent.AddListener(() => buttonUseable(false));
+        if (giveUpButton != null) giveUpButton.clickEvent.AddListener(() => buttonUseable(false));
 
-    private void ButtonUseAble(bool _value)
-    {
-        continueButton.useAble = _value;
-        titleButton.useAble = _value;
+        buttonUseable?.Invoke(false);
     }
 
     public void Open()
@@ -39,33 +38,25 @@ public class Option : MonoBehaviour
         if (isOpen) return;
         isOpen = true;
 
-        gameObject.SetActive(true);
+        canvas.gameObject.SetActive(true);
         blackView.SetActive(true);
 
         Time.timeScale = 0;
-        StartCoroutine(CanvasGroupFade(true, () => ButtonUseAble(true)));
+        CanvasFade.Instance.FadeCanvas(canvas, true, 0.5f, () =>
+        {
+            if (isOpen) buttonUseable?.Invoke(true); 
+        });
     }
 
     public void Close()
     {
         isOpen = false;
         Time.timeScale = 1;
-        StartCoroutine(CanvasGroupFade(false, () => gameObject.SetActive(false)));
-    }
 
-    private IEnumerator CanvasGroupFade(bool _open, UnityAction _endAction)
-    {
-        canvas.alpha = _open ? 0 : 1;
-
-        int _lastValue = _open ? 1 : 0;
-        float _addValue = _open ? 0.1f : -0.1f;
-
-        while (canvas.alpha != _lastValue)
+        buttonUseable?.Invoke(false);
+        CanvasFade.Instance.FadeCanvas(canvas, false, 0.5f, () =>
         {
-            yield return new WaitForSecondsRealtime(0.05f);
-            canvas.alpha += _addValue;
-        }
-
-        if(_open == isOpen) _endAction?.Invoke();
+            if (isOpen) buttonUseable?.Invoke(false);
+        });
     }
 }

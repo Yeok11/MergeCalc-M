@@ -19,6 +19,7 @@ public class GameSystem : MonoBehaviour
     [SerializeField] protected float tileMoveTime = 0.25f, boundValue = 0.1f;
 
     private Board board;
+    [SerializeField] private SoundSystem soundSystem;
 
     protected UnityAction dragEvent;
 
@@ -34,7 +35,9 @@ public class GameSystem : MonoBehaviour
     {
         mainTile = Instantiate(mainTilePrefab, tilePos);
         mainTile.Init(new TileData(CalcEnum.Plus, initValue, tileMoveTime, boundValue), MoveFinCheck);
-        
+
+        mainTile.mergeEvent += (int _n) => soundSystem.UseEffectSound(EffectAudioType.Merge);
+
         score = 0;
         scoreTmp.SetText("0");
 
@@ -46,13 +49,13 @@ public class GameSystem : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game Over");
     }
 
-    #region Tile
     protected virtual void AddScore(int _value)
     {
         score += _value;
         scoreTmp.SetText(score.ToString());
     }
 
+    #region Tile
     public virtual void SetNextTiles() { }
 
     protected void UpdateUiTiles()

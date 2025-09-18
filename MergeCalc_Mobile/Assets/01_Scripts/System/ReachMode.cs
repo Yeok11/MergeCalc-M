@@ -20,18 +20,22 @@ public class ReachMode : GameSystem
     }
     private float LeaveTime, gameTime = 60;
 
+    private bool timeStream;
+
     protected override void Start()
     {
         initValue = 0;
         base.Start();
 
         dragEvent += NextTileCheck;
+        dragEvent += () => timeStream = true;
         dragEvent += DeadCheck;
 
         mainTile.mergeEvent += TargetCheck;
 
         SetTarget();
 
+        timeStream = false;
         leaveTime = gameTime;
         timer.fillAmount = 1;
 
@@ -53,13 +57,15 @@ public class ReachMode : GameSystem
     public override void GameOver()
     {
         GameData.canDrag = false;
-        GameData.DataUpdate(score, Mode.Reach);
+        GameData.ScoreUpdate(score, Mode.Reach);
         base.GameOver();
     }
 
     protected override void Update()
     {
         base.Update();
+
+        if (!timeStream) return;
 
         leaveTime -= Time.deltaTime;
         timer.fillAmount = leaveTime / gameTime;
@@ -117,6 +123,6 @@ public class ReachMode : GameSystem
 
     protected override void ApplicationQuit()
     {
-        GameData.DataUpdate(score, Mode.Reach);
+        GameData.ScoreUpdate(score, Mode.Reach);
     }
 }

@@ -22,3 +22,15 @@ public enum Mode
     Setting,
     Quit
 }
+
+public enum AudioType
+{
+    Bgm,
+    Effect
+}
+
+public enum EffectAudioType
+{
+    Merge
+}
+

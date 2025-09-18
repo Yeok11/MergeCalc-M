@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 44eed8f02ae759f46913738bd15841e6
+guid: da35ef1cbb6d30f49abdde2a520988a5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8373696339655087610
-    second: new Tile_0
+      213: 1867482137617460536
+    second: Option Button 3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: new Tile_0
+      name: Option Button 3_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 188
-        height: 188
+        width: 509
+        height: 274
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: af551268478553470800000000000000
-      internalID: 8373696339655087610
+      spriteID: 83d631d1c11aae910800000000000000
+      internalID: 1867482137617460536
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      new Tile_0: 8373696339655087610
+      Option Button 3_0: 1867482137617460536
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

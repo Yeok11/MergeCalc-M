@@ -14,12 +14,14 @@ public class Home : MonoBehaviour
     private int modeNum = 0;
 
     [SerializeField] private TextMeshProUGUI[] upTmpLine, middleTmpLine, underTmpLine;
+    [SerializeField] private CanvasGroup exitPanel;
+    private bool openExitPanel;
 
     private ModeSO GetMode() => modes[modeNum];
 
     private void Start()
     {
-        GameData.Init();
+        GameData.InitDrag();
         Time.timeScale = 1;
 
         dragEvent.dragEvent += TileMove;
@@ -29,6 +31,7 @@ public class Home : MonoBehaviour
         TitleUpdate();
 
         mainTile.transform.localPosition = Vector3.zero;
+        openExitPanel = false;
     }
 
     public void ModeChange(Direction _dir)
@@ -50,17 +53,37 @@ public class Home : MonoBehaviour
                 GameData.canDrag = false;
                 SceneManager.LoadScene("Mode-Live");
                 break;
+
             case Mode.Reach:
                 GameData.canDrag = false;
                 SceneManager.LoadScene("Mode-Reach");
                 break;
+
             case Mode.Explain:
                 break;
+
             case Mode.Setting:
+                Option.Instance.Open();
+
                 break;
+
             case Mode.Quit:
                 Application.Quit();
                 break;
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            openExitPanel = !openExitPanel;
+            exitPanel.gameObject.SetActive(true);
+
+            CanvasFade.Instance.FadeCanvas(exitPanel, openExitPanel, 0.01f, () =>
+                {
+                    if(!openExitPanel) exitPanel.gameObject.SetActive(false);
+                });
         }
     }
 
@@ -81,7 +104,7 @@ public class Home : MonoBehaviour
             case Direction.Up:
                 seq.Append(mainTile.DOMove(upPos.position, t));
                 seq.AppendCallback(ModeAction);
-                return;
+                break;
 
             case Direction.Left:
                 seq.Append(mainTile.DOMove(leftPos.position, t));

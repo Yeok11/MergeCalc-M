@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mode: 1
   firLineMes: REACH
-  secLineMes: SCORE
+  secLineMes: "\uCD5C\uACE0 \uAE30\uB85D"
   showScore: 1

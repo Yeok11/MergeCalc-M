@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 44eed8f02ae759f46913738bd15841e6
+guid: 7e90999ac8be473449bd9b1d6738d836
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8373696339655087610
-    second: new Tile_0
+      213: 3604832510946667373
+    second: Option Button 2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: new Tile_0
+      name: Option Button 2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 188
-        height: 188
+        width: 513
+        height: 280
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: af551268478553470800000000000000
-      internalID: 8373696339655087610
+      spriteID: d6b61c9c110f60230800000000000000
+      internalID: 3604832510946667373
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      new Tile_0: 8373696339655087610
+      Option Button 2_0: 3604832510946667373
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

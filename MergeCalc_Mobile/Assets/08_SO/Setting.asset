@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f89d2549401769b4b826e1cf072304f5, type: 3}
-  m_Name: Live Mode
+  m_Name: Setting
   m_EditorClassIdentifier: 
-  mode: 0
-  firLineMes: LIVE
-  secLineMes: "\uCD5C\uACE0 \uAE30\uB85D"
-  showScore: 1
+  mode: 3
+  firLineMes: "\uC124\uC815"
+  secLineMes: 
+  showScore: 0

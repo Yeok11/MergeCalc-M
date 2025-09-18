@@ -14,3 +14,10 @@ public struct TileData
         if (calc == CalcEnum.Minus) num = -num;
     }
 }
+
+[System.Serializable]
+public struct SoundData
+{
+    public EffectAudioType audioType;
+    public UnityEngine.AudioClip clip;
+}

@@ -33,7 +33,7 @@ public class LiveMode : GameSystem
     public override void GameOver()
     {
         GameData.canDrag = false;
-        GameData.DataUpdate(score, Mode.Live);
+        GameData.ScoreUpdate(score, Mode.Live);
         base.GameOver();
     }
 
@@ -98,6 +98,6 @@ public class LiveMode : GameSystem
 
     protected override void ApplicationQuit()
     {
-        GameData.DataUpdate(score, Mode.Live);
+        GameData.ScoreUpdate(score, Mode.Live);
     }
 }
