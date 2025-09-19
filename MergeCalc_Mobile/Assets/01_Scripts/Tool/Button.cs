@@ -7,13 +7,14 @@ using UnityEngine.UI;
 public class Button : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [Header("Button")]
+    public bool useAble = true;
+    [SerializeField] private bool useCoroutine;
+
     [SerializeField] protected Image btnTarget;
     [SerializeField] protected Color baseColor = Color.white, pressedColor = Color.gray;
     [SerializeField] protected float fadeDuration = 0.1f;
 
     public UnityEvent clickEvent;
-    [SerializeField] private bool useCoroutine;
-    public bool useAble = true;
 
     protected virtual void Awake()
     {

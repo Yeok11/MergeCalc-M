@@ -61,10 +61,8 @@ public class ReachMode : GameSystem
         base.GameOver();
     }
 
-    protected override void Update()
+    private void Update()
     {
-        base.Update();
-
         if (!timeStream) return;
 
         leaveTime -= Time.deltaTime;

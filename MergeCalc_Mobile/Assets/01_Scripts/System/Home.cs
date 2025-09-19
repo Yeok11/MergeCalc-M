@@ -4,6 +4,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 
+[RequireComponent(typeof(PanelManager))]
 public class Home : MonoBehaviour
 {
     [SerializeField] private Transform mainTile, basePos, leftPos, rightPos, upPos;
@@ -15,12 +16,7 @@ public class Home : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI[] upTmpLine, middleTmpLine, underTmpLine;
 
-    [Header("Panel")]
-    [SerializeField] private CanvasGroup exitPanel;
-    private bool openExitPanel;
-
-    [SerializeField] private ExplainPanel explainPanel;
-    [SerializeField] private GameObject blackView;
+    private PanelManager panelManager;
 
     private ModeSO GetMode() => modes[modeNum];
 
@@ -36,30 +32,8 @@ public class Home : MonoBehaviour
         TitleUpdate();
 
         mainTile.transform.localPosition = Vector3.zero;
-        
-        openExitPanel = false;
-        exitPanel.gameObject.SetActive(false);
-    }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape)) ExitPanelAble();
-    }
-
-    public void ExitPanelAble()
-    {
-        openExitPanel = !openExitPanel;
-        exitPanel.gameObject.SetActive(true);
-        blackView.SetActive(true);
-
-        CanvasFade.Instance.FadeCanvas(exitPanel, openExitPanel, 0.01f, () =>
-        {
-            if (!openExitPanel)
-            {
-                exitPanel.gameObject.SetActive(false);
-                blackView.SetActive(false);
-            }
-        });
+        panelManager = GetComponent<PanelManager>();
     }
 
     #region Mode
@@ -87,8 +61,7 @@ public class Home : MonoBehaviour
             case Mode.Live:
             case Mode.Reach:
                 GameData.canDrag = false;
-                if (GameData.GetModeExplain(_mode))
-                    explainPanel.Open(GetMode());
+                if (GameData.GetModeExplain(_mode)) panelManager.Open(PanelType.Explain);
                 else
                     SceneManager.LoadScene("Mode-" + _mode);
                 break;
@@ -97,7 +70,7 @@ public class Home : MonoBehaviour
                 break;
 
             case Mode.Setting:
-                Option.Instance.Open();
+                panelManager.Open(PanelType.Option);
                 break;
 
             case Mode.Quit:

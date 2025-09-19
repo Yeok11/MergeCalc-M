@@ -2157,6 +2157,7 @@ GameObject:
   - component: {fileID: 838315815}
   - component: {fileID: 838315814}
   - component: {fileID: 838315816}
+  - component: {fileID: 838315817}
   m_Layer: 5
   m_Name: Exit Panel
   m_TagString: Untagged
@@ -2236,6 +2237,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &838315817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838315812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f149bdb5b60e174cbdfee646251db0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 0}
+  keyType: 1
+  time: 0.1
 --- !u!1 &856203662
 GameObject:
   m_ObjectHideFlags: 0
@@ -5548,7 +5564,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71ac913f4ce8674d8713068cec20d10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasGroup: {fileID: 0}
+  canvas: {fileID: 0}
+  keyType: 2
+  time: 0
   nameTmp: {fileID: 1403413315}
   explainTmp: {fileID: 1273334737}
 --- !u!114 &1838817712 stripped
@@ -5816,9 +5834,6 @@ MonoBehaviour:
   - {fileID: 929328125}
   - {fileID: 806615299}
   - {fileID: 240399247}
-  exitPanel: {fileID: 838315816}
-  explainPanel: {fileID: 1817461696}
-  blackView: {fileID: 3935103005863719072}
 --- !u!114 &1905189945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5853,14 +5868,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1905189942}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc70854e86fd30a47a0308994364d137, type: 3}
+  m_Script: {fileID: 11500000, guid: 600bb11e918a88845b9a1a7207fd8cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 319010917686685666}
-  blackView: {fileID: 3935103005863719072}
-  timeScaleChange: 0
-  buttons:
-  - {fileID: 82061554136051545}
+  panels:
+  - {fileID: 9158686594214541203}
+  - {fileID: 838315817}
+  - {fileID: 1817461696}
+  escapePanel: 1
 --- !u!1001 &1989303295
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6427,9 +6442,9 @@ MonoBehaviour:
   clickEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1905189944}
-        m_TargetAssemblyTypeName: Home, Assembly-CSharp
-        m_MethodName: ExitPanelAble
+      - m_Target: {fileID: 1905189947}
+        m_TargetAssemblyTypeName: PanelManager, Assembly-CSharp
+        m_MethodName: Close
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6461,7 +6476,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1905189947}
-        m_TargetAssemblyTypeName: Option, Assembly-CSharp
+        m_TargetAssemblyTypeName: PanelManager, Assembly-CSharp
         m_MethodName: Close
         m_Mode: 1
         m_Arguments:
@@ -6956,6 +6971,7 @@ GameObject:
   - component: {fileID: 2327252130800752138}
   - component: {fileID: 1056984555634033919}
   - component: {fileID: 319010917686685666}
+  - component: {fileID: 9158686594214541203}
   m_Layer: 5
   m_Name: Option Panel
   m_TagString: Untagged
@@ -7753,6 +7769,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 950, y: 1200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &9158686594214541203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610887600495090119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc70854e86fd30a47a0308994364d137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 319010917686685666}
+  keyType: 0
+  time: 0.5
+  timeScaleChange: 0
+  buttons:
+  - {fileID: 82061554136051545}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

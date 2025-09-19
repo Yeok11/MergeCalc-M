@@ -514,6 +514,9 @@ MonoBehaviour:
   offXValue: -111.9
   onBGColor: {r: 1, g: 0.85098046, b: 0.5019608, a: 1}
   offBGColor: {r: 0.61635214, g: 0.43064034, b: 0.25002956, a: 1}
+  toggleEvent:
+    m_PersistentCalls:
+      m_Calls: []
   type: 0
 --- !u!1 &3756857366016730090
 GameObject:
@@ -940,6 +943,9 @@ MonoBehaviour:
   offXValue: -111.9
   onBGColor: {r: 1, g: 0.8470589, b: 0.5019608, a: 1}
   offBGColor: {r: 0.6156863, g: 0.43137258, b: 0.2509804, a: 1}
+  toggleEvent:
+    m_PersistentCalls:
+      m_Calls: []
   type: 1
 --- !u!1 &6404376459250388361
 GameObject:
@@ -1049,7 +1055,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  useCoroutine: 0
+  useCoroutine: 1
   useAble: 1
 --- !u!1 &6922061249276323747
 GameObject:
@@ -1102,9 +1108,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 319010918078945679}
-  blackView: {fileID: 3935103007093962744}
-  continueButton: {fileID: 82061553603467572}
-  giveUpButton: {fileID: 6267405793712678873}
+  keyType: 0
+  time: 0.2
+  timeScaleChange: 1
+  buttons:
+  - {fileID: 82061553603467572}
+  - {fileID: 6267405793712678873}
 --- !u!1 &7081575227666819321
 GameObject:
   m_ObjectHideFlags: 0

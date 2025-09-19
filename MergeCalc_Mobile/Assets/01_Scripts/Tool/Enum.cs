@@ -34,3 +34,9 @@ public enum EffectAudioType
     Merge
 }
 
+public enum PanelType
+{
+    Option,
+    Exit,
+    Explain
+}

@@ -19,8 +19,7 @@ public class GameSystem : MonoBehaviour
     [SerializeField] protected float tileMoveTime = 0.25f, boundValue = 0.1f;
 
     private Board board;
-    [SerializeField] private SoundSystem soundSystem;
-
+    
     protected UnityAction dragEvent;
 
     private void Awake()
@@ -36,7 +35,7 @@ public class GameSystem : MonoBehaviour
         mainTile = Instantiate(mainTilePrefab, tilePos);
         mainTile.Init(new TileData(CalcEnum.Plus, initValue, tileMoveTime, boundValue), MoveFinCheck);
 
-        mainTile.mergeEvent += (int _n) => soundSystem.UseEffectSound(EffectAudioType.Merge);
+        mainTile.mergeEvent += (int _n) => SoundSystem.Instance.UseEffectSound(EffectAudioType.Merge);
 
         score = 0;
         scoreTmp.SetText("0");
@@ -106,16 +105,6 @@ public class GameSystem : MonoBehaviour
     #endregion
 
     #region Option or Quit
-    protected virtual void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape)) Option.Instance.Open();
-    }
-
-    private void OnApplicationPause(bool pause)
-    {
-        if (pause) Option.Instance.Open();
-    }
-
     private void OnApplicationQuit()
     {
         ApplicationQuit();

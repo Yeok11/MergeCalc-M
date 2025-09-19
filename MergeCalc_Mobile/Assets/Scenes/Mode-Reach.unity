@@ -650,7 +650,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: dcbe2df7b5d50da409f24aa9fbd84f88, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -680,16 +680,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29b5e57871b7b4478169e469378b77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  btnTarget: {fileID: 0}
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   pressedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   fadeDuration: 0.1
   clickEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1919339672}
-        m_TargetAssemblyTypeName: Option, Assembly-CSharp
-        m_MethodName: Open
+      - m_Target: {fileID: 1405691323}
+        m_TargetAssemblyTypeName: PanelManager, Assembly-CSharp
+        m_MethodName: OpenOption
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -699,7 +699,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  useCoroutine: 1
+  useCoroutine: 0
   useAble: 1
 --- !u!1 &328314493
 GameObject:
@@ -2704,6 +2704,8 @@ GameObject:
   - component: {fileID: 1405691319}
   - component: {fileID: 1405691321}
   - component: {fileID: 1405691322}
+  - component: {fileID: 1405691323}
+  - component: {fileID: 1405691324}
   m_Layer: 0
   m_Name: Game System
   m_TagString: Untagged
@@ -2779,6 +2781,35 @@ MonoBehaviour:
   soundSystem: {fileID: 1424595864}
   targetText: {fileID: 1734048532}
   timer: {fileID: 174942101}
+--- !u!114 &1405691323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405691318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 600bb11e918a88845b9a1a7207fd8cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panels:
+  - {fileID: 3354384860268080408}
+  blackView: {fileID: 3354384860268080409}
+  pauseCheck: 1
+  escapePanel: 0
+--- !u!114 &1405691324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405691318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2800e24061da3534dbf6def1c7474e38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1424595864 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7141603348936837446, guid: 0a30ea222389b5c4abab5f28debc3708, type: 3}
@@ -4337,17 +4368,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5984238585276761258, guid: 2af012ae14e46ec43afb1c264e166d68, type: 3}
   m_PrefabInstance: {fileID: 3354384860268080407}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1919339672 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8555445298223848672, guid: 2af012ae14e46ec43afb1c264e166d68, type: 3}
-  m_PrefabInstance: {fileID: 3354384860268080407}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc70854e86fd30a47a0308994364d137, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2032640706
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5020,6 +5040,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2af012ae14e46ec43afb1c264e166d68, type: 3}
+--- !u!114 &3354384860268080408 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6681083436455403593, guid: 2af012ae14e46ec43afb1c264e166d68, type: 3}
+  m_PrefabInstance: {fileID: 3354384860268080407}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc70854e86fd30a47a0308994364d137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3354384860268080409 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3935103007093962744, guid: 2af012ae14e46ec43afb1c264e166d68, type: 3}
+  m_PrefabInstance: {fileID: 3354384860268080407}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7924212516865849269
 PrefabInstance:
   m_ObjectHideFlags: 0
