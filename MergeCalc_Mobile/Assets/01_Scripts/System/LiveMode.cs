@@ -6,20 +6,15 @@ using UnityEngine.Events;
 public class LiveMode : GameSystem
 {
     [SerializeField] private TextMeshProUGUI leftText, rangeText;
-    private int cnt, stageNum = 0, range;
-
-    private UnityAction stageClearEvent;
+    private int cnt, range;
 
     protected override void Start()
     {
         base.Start();
 
         dragEvent += DeadCheck;
-        mainTile.mergeEvent += (int _i) => AddScore(1);
 
-        SetNextStage();
-
-        stageClearEvent += () => AddScore(5);
+        SetNextTiles();
         GameData.canDrag = true;
     }
 
@@ -37,30 +32,35 @@ public class LiveMode : GameSystem
         base.GameOver();
     }
 
-    private void SetNextStage()
+    private void StageClear()
     {
-        stageClearEvent?.Invoke();
-
-        limitCnt = 5 + (stageNum++ / 2);
-        range = (limitCnt - 1) * 5 + (stageNum % 2) * 5;
-        showTileNum = 0;
-
-        rangeText.SetText($"Max : {range} / Min : -{range}");
-
+        AddScore(1);
         SetNextTiles();
     }
 
     public override void SetNextTiles()
     {
+        // (Min / Max)
+        Vector2Int _PM = new((score / 3) + 1, ((score + 1) / 2) + 5), _MD = new(score / 4 + 2, (score + 1) / 2 + 2);
+        range = ((score / 2) + 1) * 10;
+        showTileNum = 0;
+
+        rangeText.SetText($"Max : {range} / Min : -{range}");
+
         List<TileData> _tileDatas = new();
 
-        for (int calc = 0; calc < 4; calc++)
+        //Plus, Minus
+        for (int num = _PM.x; num <= _PM.y; num++)
         {
-            for (int num = 1; num <= limitCnt; num++)
-            {
-                if (calc > 1 && num == 1) continue;
-                _tileDatas.Add(new((CalcEnum)calc, num, tileMoveTime, boundValue));
-            }
+            _tileDatas.Add(new(CalcEnum.Plus, num, tileMoveTime, boundValue));
+            _tileDatas.Add(new(CalcEnum.Minus, num, tileMoveTime, boundValue));
+        }
+
+        //Multiple, Divide
+        for (int num = _MD.x; num <= _MD.y; num++)
+        {
+            _tileDatas.Add(new(CalcEnum.Multiple, num, tileMoveTime, boundValue));
+            _tileDatas.Add(new(CalcEnum.Divide, num, tileMoveTime, boundValue));
         }
 
         while (_tileDatas.Count != 0)
@@ -72,7 +72,7 @@ public class LiveMode : GameSystem
 
         cnt = nextTiles.Count;
 
-        LeftMessageUpdate();
+        LeftTileCheck();
         UpdateUiTiles();
     }
 
@@ -80,17 +80,17 @@ public class LiveMode : GameSystem
     {
         base.Spawn();
         cnt--;
-        LeftMessageUpdate();
+        LeftTileCheck();
     }
 
-    private void LeftMessageUpdate()
+    private void LeftTileCheck()
     {
         leftText.SetText($"Left Tile ({cnt})");
 
         if (cnt == 0)
         {
             GameData.canDrag = false;
-            Invoke("SetNextStage", 1.5f);
+            Invoke("StageClear", 1);
         }
         else
             GameData.canDrag = true;

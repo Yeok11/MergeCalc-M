@@ -4330,7 +4330,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBC84\uADF8 \uD14C\uC2A4\uD2B8"
+  m_text: "\uB0A8\uC740 \uD0C0\uC77C(Left Tile)\uC744 \n\uBAA8\uB450 \uC0AC\uC6A9\uD560
+    \uB54C\uB9C8\uB2E4 1\uC810\uC744 \n\uD68D\uB4DD\uD569\uB2C8\uB2E4.\n\n\uD50C\uB808\uC774\uC5B4
+    \uD0C0\uC77C\uC758 \uC22B\uC790\uAC00\nMin\uBCF4\uB2E4 \uC791\uAC70\uB098 Max\uBCF4\uB2E4
+    \uCEE4\uC9C0\uBA74\n\uAC8C\uC784\uC774 \uC885\uB8CC\uB429\uB2C8\uB2E4."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 45402ba8a264df54393d1a5d430d456e, type: 2}
   m_sharedMaterial: {fileID: 3960921149749258129, guid: 45402ba8a264df54393d1a5d430d456e, type: 2}
@@ -5474,7 +5477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1817461692
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5565,6 +5568,7 @@ MonoBehaviour:
   time: 0
   nameTmp: {fileID: 1403413315}
   explainTmp: {fileID: 1273334737}
+  home: {fileID: 0}
 --- !u!114 &1838817712 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2953059266060980786, guid: 9e3b40228ad9f6b47aea2733a5e0c2b1, type: 3}

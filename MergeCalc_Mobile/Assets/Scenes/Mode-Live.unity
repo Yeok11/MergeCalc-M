@@ -4225,7 +4225,7 @@ MonoBehaviour:
   clickEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1405691325}
         m_TargetAssemblyTypeName: PanelManager, Assembly-CSharp
         m_MethodName: OpenOption
         m_Mode: 1

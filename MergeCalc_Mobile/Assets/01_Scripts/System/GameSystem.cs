@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GameSystem : MonoBehaviour
+public abstract class GameSystem : MonoBehaviour
 {
     public static GameSystem Instance;
 
@@ -11,7 +11,7 @@ public class GameSystem : MonoBehaviour
     [SerializeField] private MainTile mainTilePrefab;
     [SerializeField] private Transform tilePos;
     [SerializeField] protected TextMeshProUGUI scoreTmp;
-    protected int limitCnt = 5, moveTileCnt, checkTileCnt, score, initValue = 1;
+    protected int moveTileCnt, checkTileCnt, score, initValue = 1;
 
     protected Queue<TileData> nextTiles = new();
     protected int showTileNum = 0;
@@ -56,7 +56,7 @@ public class GameSystem : MonoBehaviour
     }
 
     #region Tile
-    public virtual void SetNextTiles() { }
+    public abstract void SetNextTiles();
 
     protected void UpdateUiTiles()
     {
