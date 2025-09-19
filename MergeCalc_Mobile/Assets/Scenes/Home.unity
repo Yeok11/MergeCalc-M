@@ -590,6 +590,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29b5e57871b7b4478169e469378b77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAble: 1
+  useCoroutine: 0
   btnTarget: {fileID: 0}
   baseColor: {r: 1, g: 0.7254902, b: 0.6313726, a: 1}
   pressedColor: {r: 0.6792453, g: 0.27987844, b: 0.22427903, a: 1}
@@ -609,8 +611,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  useCoroutine: 0
-  useAble: 1
 --- !u!1001 &134971012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2058,6 +2058,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29b5e57871b7b4478169e469378b77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAble: 1
+  useCoroutine: 0
   btnTarget: {fileID: 0}
   baseColor: {r: 0.9333334, g: 0.9921569, b: 0.85098046, a: 1}
   pressedColor: {r: 0.37738794, g: 0.48427665, b: 0.22995521, a: 1}
@@ -2077,8 +2079,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  useCoroutine: 0
-  useAble: 1
 --- !u!114 &806615299 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2953059266060980786, guid: 9e3b40228ad9f6b47aea2733a5e0c2b1, type: 3}
@@ -3820,6 +3820,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520487cbb99ff884b9401b796e05c949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAble: 1
+  useCoroutine: 0
   btnTarget: {fileID: 1876353719}
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   pressedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -3827,8 +3829,6 @@ MonoBehaviour:
   clickEvent:
     m_PersistentCalls:
       m_Calls: []
-  useCoroutine: 0
-  useAble: 1
   bgTarget: {fileID: 0}
   offXValue: -111.9
   onBGColor: {r: 1, g: 0.8470589, b: 0.5019608, a: 1}
@@ -4040,6 +4040,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29b5e57871b7b4478169e469378b77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAble: 1
+  useCoroutine: 0
   btnTarget: {fileID: 0}
   baseColor: {r: 1, g: 0.7, b: 0.6, a: 1}
   pressedColor: {r: 0.84, g: 0.4, b: 0.35, a: 1}
@@ -4059,8 +4061,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  useCoroutine: 0
-  useAble: 1
 --- !u!1 &1217433493
 GameObject:
   m_ObjectHideFlags: 0
@@ -5875,6 +5875,8 @@ MonoBehaviour:
   - {fileID: 9158686594214541203}
   - {fileID: 838315817}
   - {fileID: 1817461696}
+  blackView: {fileID: 3935103005863719072}
+  pauseCheck: 0
   escapePanel: 1
 --- !u!1001 &1989303295
 PrefabInstance:
@@ -6155,6 +6157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520487cbb99ff884b9401b796e05c949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAble: 1
+  useCoroutine: 0
   btnTarget: {fileID: 1609196441}
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   pressedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -6162,8 +6166,6 @@ MonoBehaviour:
   clickEvent:
     m_PersistentCalls:
       m_Calls: []
-  useCoroutine: 0
-  useAble: 1
   bgTarget: {fileID: 0}
   offXValue: -111.9
   onBGColor: {r: 1, g: 0.8470589, b: 0.5019608, a: 1}
@@ -6435,6 +6437,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29b5e57871b7b4478169e469378b77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAble: 1
+  useCoroutine: 0
   btnTarget: {fileID: 0}
   baseColor: {r: 0.9, g: 1, b: 0.85, a: 1}
   pressedColor: {r: 0.47958934, g: 0.74213827, b: 0.34306386, a: 1}
@@ -6454,8 +6458,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  useCoroutine: 0
-  useAble: 1
 --- !u!114 &82061554136051545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6468,6 +6470,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29b5e57871b7b4478169e469378b77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAble: 1
+  useCoroutine: 0
   btnTarget: {fileID: 0}
   baseColor: {r: 0.454902, g: 0.7686275, b: 0.56078434, a: 1}
   pressedColor: {r: 0.37071308, g: 0.55345905, b: 0.43238986, a: 1}
@@ -6487,8 +6491,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  useCoroutine: 0
-  useAble: 1
 --- !u!225 &319010917686685666
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -6561,6 +6563,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b4e4cd29f71aec46b19823c1b1086e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAble: 1
+  useCoroutine: 0
   btnTarget: {fileID: 1450395950347538959}
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   pressedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -6568,8 +6572,6 @@ MonoBehaviour:
   clickEvent:
     m_PersistentCalls:
       m_Calls: []
-  useCoroutine: 0
-  useAble: 1
   bgTarget: {fileID: 0}
   offXValue: -111.9
   onBGColor: {r: 1, g: 0.85098046, b: 0.5019608, a: 1}
@@ -7130,6 +7132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b4e4cd29f71aec46b19823c1b1086e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAble: 1
+  useCoroutine: 0
   btnTarget: {fileID: 6943542423936934794}
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   pressedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -7137,8 +7141,6 @@ MonoBehaviour:
   clickEvent:
     m_PersistentCalls:
       m_Calls: []
-  useCoroutine: 0
-  useAble: 1
   bgTarget: {fileID: 0}
   offXValue: -111.9
   onBGColor: {r: 1, g: 0.8470589, b: 0.5019608, a: 1}

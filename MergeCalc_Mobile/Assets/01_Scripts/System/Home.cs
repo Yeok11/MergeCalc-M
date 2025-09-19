@@ -50,7 +50,11 @@ public class Home : MonoBehaviour
 
     public void Quit() => Application.Quit();
 
-    public void SceneLoad() => SceneManager.LoadScene("Mode-" + GetMode().mode);
+    public void SceneLoad()
+    {
+        GameData.canDrag = false;
+        SceneManager.LoadScene("Mode-" + GetMode().mode);
+    }
 
     public void ModeAction()
     {
@@ -60,10 +64,9 @@ public class Home : MonoBehaviour
         {
             case Mode.Live:
             case Mode.Reach:
-                GameData.canDrag = false;
                 if (GameData.GetModeExplain(_mode)) panelManager.Open(PanelType.Explain);
                 else
-                    SceneManager.LoadScene("Mode-" + _mode);
+                    SceneLoad();
                 break;
 
             case Mode.Explain:
