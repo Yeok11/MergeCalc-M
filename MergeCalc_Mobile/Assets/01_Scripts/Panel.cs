@@ -18,6 +18,7 @@ public class Panel : MonoBehaviour
         if (canvas == null) canvas = GetComponent<CanvasGroup>();
 
         canvas.gameObject.SetActive(false);
+        onOpenEvent += () => canvas.gameObject.SetActive(true);
         onCloseEvent += () => canvas.gameObject.SetActive(false);
     }
 
@@ -26,9 +27,8 @@ public class Panel : MonoBehaviour
         if (isOpenState) return;
         isOpenState = true;
 
-        canvas.gameObject.SetActive(true);
-
-        PanelFade.Instance.FadePanel(this, true, time, onOpenEvent);
+        onOpenEvent?.Invoke();
+        PanelFade.Instance.FadePanel(this, true, time, null);
     }
 
     public virtual void Close()

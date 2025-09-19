@@ -18,7 +18,7 @@ public class Home : MonoBehaviour
 
     private PanelManager panelManager;
 
-    private ModeSO GetMode() => modes[modeNum];
+    public ModeSO GetMode() => modes[modeNum];
 
     private void Start()
     {
@@ -64,7 +64,8 @@ public class Home : MonoBehaviour
         {
             case Mode.Live:
             case Mode.Reach:
-                if (GameData.GetModeExplain(_mode)) panelManager.Open(PanelType.Explain);
+                if (GameData.GetModeExplain(_mode))
+                    panelManager.Open(PanelType.Explain);
                 else
                     SceneLoad();
                 break;
