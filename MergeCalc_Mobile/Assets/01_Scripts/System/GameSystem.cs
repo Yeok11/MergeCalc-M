@@ -45,6 +45,7 @@ public class GameSystem : MonoBehaviour
 
     public virtual void GameOver()
     {
+        Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game Over");
     }
 
