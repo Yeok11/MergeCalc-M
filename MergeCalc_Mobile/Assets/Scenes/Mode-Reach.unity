@@ -627,7 +627,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10, y: -10}
+  m_AnchoredPosition: {x: -25, y: -25}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &274030771
@@ -680,6 +680,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29b5e57871b7b4478169e469378b77a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAble: 1
+  useCoroutine: 0
   btnTarget: {fileID: 0}
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   pressedColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
@@ -699,8 +701,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  useCoroutine: 0
-  useAble: 1
 --- !u!1 &328314493
 GameObject:
   m_ObjectHideFlags: 0
@@ -2778,7 +2778,6 @@ MonoBehaviour:
   - {fileID: 1568679795}
   tileMoveTime: 0.2
   boundValue: 0.1
-  soundSystem: {fileID: 1424595864}
   targetText: {fileID: 1734048532}
   timer: {fileID: 174942101}
 --- !u!114 &1405691323
@@ -2808,17 +2807,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2800e24061da3534dbf6def1c7474e38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1424595864 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7141603348936837446, guid: 0a30ea222389b5c4abab5f28debc3708, type: 3}
-  m_PrefabInstance: {fileID: 7924212516865849269}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e00520e7190de74f9b25ef5dce855e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1498353696
