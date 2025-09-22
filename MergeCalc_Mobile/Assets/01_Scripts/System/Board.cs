@@ -179,6 +179,7 @@ public class Board : MonoBehaviour
 
     private void OnDestroy()
     {
+        dragSystem.dragEvent -= OnDragEvent;
         moveEvent.RemoveAllListeners();
     }
 }
