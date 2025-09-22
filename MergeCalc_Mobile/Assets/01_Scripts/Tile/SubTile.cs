@@ -2,9 +2,6 @@ public class SubTile : MoveTile
 {
     public void RemoveTile(MainTile _mTile)
     {
-        moveFin += () =>
-        {
-            _mTile.MergeUpdate();
-        };
+        moveFin.AddListener(() => _mTile.MergeUpdate());
     }
 }

@@ -27,38 +27,17 @@ public class ReachMode : GameSystem
         initValue = 0;
         base.Start();
 
-        dragEvent += NextTileCheck;
-        dragEvent += () => timeStream = true;
-        dragEvent += DeadCheck;
-
-        mainTile.mergeEvent += TargetCheck;
+        dragEvent.AddListener(OnDrageEvent);
 
         SetTarget();
 
         timeStream = false;
+
         leaveTime = gameTime;
         timer.fillAmount = 1;
 
         SetNextTiles();
         GameData.canDrag = true;
-    }
-
-    private void NextTileCheck()
-    {
-        if (showTiles.Count > nextTiles.Count) SetNextTiles();
-        GameData.canDrag = true;
-    }
-
-    private void DeadCheck()
-    {
-        if (0 >= leaveTime) GameOver();
-    }
-
-    public override void GameOver()
-    {
-        GameData.canDrag = false;
-        GameData.ScoreUpdate(score, Mode.Reach);
-        base.GameOver();
     }
 
     private void Update()
@@ -69,7 +48,40 @@ public class ReachMode : GameSystem
         timer.fillAmount = leaveTime / gameTime;
     }
 
-    public override void SetNextTiles()
+    #region Event Subscribe
+    protected override void OnMergeEvent(int _n)
+    {
+        base.OnMergeEvent(_n);
+        TargetCheck(_n);
+    }
+
+    private void OnDrageEvent()
+    {
+        NextTileCheck();
+        if(!timeStream) timeStream = true;
+        DeadCheck();
+    }
+    #endregion
+
+    private void DeadCheck()
+    {
+        if (0 >= leaveTime) GameOver();
+    }
+
+    protected override void GameOver()
+    {
+        GameData.canDrag = false;
+        GameData.ScoreUpdate(score, Mode.Reach);
+        base.GameOver();
+    }
+
+    private void NextTileCheck()
+    {
+        if (showTiles.Count > nextTiles.Count) SetNextTiles();
+        GameData.canDrag = true;
+    }
+
+    protected override void SetNextTiles()
     {
         List<TileData> _tileDatas = new();
 
@@ -115,12 +127,14 @@ public class ReachMode : GameSystem
         if (target != _value) return;
 
         leaveTime += 10;
-        AddScore(1);
+        AddScore();
         SetTarget();
     }
 
+    #region Quit
     protected override void ApplicationQuit()
     {
         GameData.ScoreUpdate(score, Mode.Reach);
     }
+    #endregion
 }

@@ -13,9 +13,9 @@ public class PanelFade : MonoBehaviour
         else Instance = this;
     }
 
-    public void FadePanel(Panel _panel, bool _isOpen, float _time, UnityAction _event) => StartCoroutine(FadePanelCoroutine(_panel, _isOpen, _time, _event));
+    public void FadePanel(Panel _panel, bool _isOpen, float _time, UnityEvent _event) => StartCoroutine(FadePanelCoroutine(_panel, _isOpen, _time, _event));
 
-    private IEnumerator FadePanelCoroutine(Panel _panel, bool _isOpen, float _time, UnityAction _endEvent)
+    private IEnumerator FadePanelCoroutine(Panel _panel, bool _isOpen, float _time, UnityEvent _endEvent)
     {
         float _t = _time * loop, _addValue = _isOpen ? loop : -loop;
 

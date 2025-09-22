@@ -48,14 +48,6 @@ public class Home : MonoBehaviour
         TitleUpdate();
     }
 
-    public void Quit() => Application.Quit();
-
-    public void SceneLoad()
-    {
-        GameData.canDrag = false;
-        SceneManager.LoadScene("Mode-" + GetMode().mode);
-    }
-
     public void ModeAction()
     {
         var _mode = GetMode().mode;
@@ -82,14 +74,20 @@ public class Home : MonoBehaviour
                 break;
         }
     }
+
+    public void Quit() => Application.Quit();
+
+    public void SceneLoad()
+    {
+        GameData.canDrag = false;
+        SceneManager.LoadScene("Mode-" + GetMode().mode);
+    }
     #endregion
 
     #region Move
-    private void MoveToBase() => MoveToBase(0);
-
-    private void MoveToBase(float _t)
+    private void MoveToBase()
     {
-        mainTile.DOMove(basePos.position, _t);
+        mainTile.DOMove(basePos.position, 0);
     }
 
     private void TileMove(Direction _dir)
@@ -120,7 +118,7 @@ public class Home : MonoBehaviour
     #endregion
 
     #region Text
-    public void TitleUpdate()
+    private void TitleUpdate()
     {
         var _mode = GetMode();
         LineTextUpdate(1, _mode.firLineMes);
@@ -129,9 +127,7 @@ public class Home : MonoBehaviour
         var _mes = "";
 
         if(_mode.showScore)
-        {
             _mes = GameData.GetHScore(_mode.mode).ToString("D5");
-        }
 
         LineTextUpdate(3, _mes);
     }
@@ -157,4 +153,9 @@ public class Home : MonoBehaviour
         }
     }
     #endregion
+
+    private void OnDisable()
+    {
+        dragEvent.dragEvent -= TileMove;
+    }
 }

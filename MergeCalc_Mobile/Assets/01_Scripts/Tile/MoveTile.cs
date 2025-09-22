@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class MoveTile : Tile
 {
-    protected UnityAction moveFin;
+    protected UnityEvent moveFin;
     protected Transform destination;
     protected Direction direction;
 
@@ -18,7 +18,7 @@ public class MoveTile : Tile
         base.Init(_tileData);
 
         time = _tileData.time;
-        moveFin = _moveFin;
+        moveFin.AddListener(_moveFin);
         bound = _tileData.bound;
         isMerging = false;
 
@@ -73,5 +73,10 @@ public class MoveTile : Tile
 
         seq.Append(transform.DOMove(destination.position, _animeTime));
         seq.AppendCallback(() => moveFin?.Invoke());
+    }
+
+    protected virtual void OnDestroy()
+    {
+        moveFin.RemoveAllListeners();
     }
 }

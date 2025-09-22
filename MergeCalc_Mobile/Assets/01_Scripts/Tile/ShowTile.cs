@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class ShowTile : Tile
 {
     private bool isNull = true;

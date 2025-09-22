@@ -1,18 +1,17 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class LiveMode : GameSystem
 {
-    [SerializeField] private TextMeshProUGUI leftText, rangeText;
-    private int cnt, range;
+    [SerializeField] private TextMeshProUGUI leftTmp, rangeTmp;
+    private int nextTileCnt, range;
 
     protected override void Start()
     {
         base.Start();
 
-        dragEvent += DeadCheck;
+        dragEvent.AddListener(DeadCheck);
 
         SetNextTiles();
         GameData.canDrag = true;
@@ -21,11 +20,10 @@ public class LiveMode : GameSystem
     private void DeadCheck()
     {
         int n = mainTile.GetValue();
-
         if (n > range || n < -range) GameOver();
     }
 
-    public override void GameOver()
+    protected override void GameOver()
     {
         GameData.canDrag = false;
         GameData.ScoreUpdate(score, Mode.Live);
@@ -34,18 +32,18 @@ public class LiveMode : GameSystem
 
     private void StageClear()
     {
-        AddScore(1);
+        AddScore();
         SetNextTiles();
     }
 
-    public override void SetNextTiles()
+    protected override void SetNextTiles()
     {
         // (Min / Max)
         Vector2Int _PM = new((score / 3) + 1, ((score + 1) / 2) + 5), _MD = new(score / 4 + 2, (score + 1) / 2 + 2);
         range = ((score / 2) + 1) * 10;
         showTileNum = 0;
 
-        rangeText.SetText($"Max : {range} / Min : -{range}");
+        rangeTmp.SetText($"Max : {range} / Min : -{range}");
 
         List<TileData> _tileDatas = new();
 
@@ -70,7 +68,7 @@ public class LiveMode : GameSystem
             _tileDatas.RemoveAt(_rand);
         }
 
-        cnt = nextTiles.Count;
+        nextTileCnt = nextTiles.Count;
 
         LeftTileCheck();
         UpdateUiTiles();
@@ -79,15 +77,15 @@ public class LiveMode : GameSystem
     protected override void Spawn()
     {
         base.Spawn();
-        cnt--;
+        nextTileCnt--;
         LeftTileCheck();
     }
 
     private void LeftTileCheck()
     {
-        leftText.SetText($"Left Tile ({cnt})");
+        leftTmp.SetText($"Left Tile ({nextTileCnt})");
 
-        if (cnt == 0)
+        if (nextTileCnt == 0)
         {
             GameData.canDrag = false;
             Invoke("StageClear", 1);

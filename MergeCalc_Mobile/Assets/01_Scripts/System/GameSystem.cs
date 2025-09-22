@@ -5,75 +5,72 @@ using UnityEngine.Events;
 
 public abstract class GameSystem : MonoBehaviour
 {
-    public static GameSystem Instance;
-
     protected MainTile mainTile;
     [SerializeField] private MainTile mainTilePrefab;
-    [SerializeField] private Transform tilePos;
+
+    [SerializeField] private Transform tileGroupTrm;
     [SerializeField] protected TextMeshProUGUI scoreTmp;
     protected int moveTileCnt, checkTileCnt, score, initValue = 1;
+    
+    [SerializeField] protected float tileMoveTime = 0.25f, boundValue = 0.1f;
+    protected UnityEvent dragEvent;
 
     protected Queue<TileData> nextTiles = new();
     protected int showTileNum = 0;
     [SerializeField] protected List<ShowTile> showTiles;
-    [SerializeField] protected float tileMoveTime = 0.25f, boundValue = 0.1f;
 
     private Board board;
-    
-    protected UnityAction dragEvent;
 
     private void Awake()
     {
-        if (Instance != null) { Destroy(gameObject); return; }
-        Instance = this;
-
         board = GetComponent<Board>();
     }
 
     protected virtual void Start()
     {
-        mainTile = Instantiate(mainTilePrefab, tilePos);
+        mainTile = Instantiate(mainTilePrefab, tileGroupTrm);
         mainTile.Init(new TileData(CalcEnum.Plus, initValue, tileMoveTime, boundValue), MoveFinCheck);
-
-        mainTile.mergeEvent += (int _n) => SoundSystem.Instance.UseEffectSound(EffectAudioType.Merge);
+        mainTile.mergeEvent.AddListener(OnMergeEvent);
 
         score = 0;
         scoreTmp.SetText("0");
 
-        board.Init(mainTile);
+        board.Init(mainTile, Move);
     }
 
-    public virtual void GameOver()
+    protected virtual void OnMergeEvent(int _n) => SoundSystem.Instance.UseEffectSound(EffectAudioType.Merge);
+
+    protected virtual void GameOver()
     {
         Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game Over");
     }
 
-    protected virtual void AddScore(int _value)
+    protected virtual void AddScore(int _value = 1)
     {
         score += _value;
         scoreTmp.SetText(score.ToString());
     }
 
     #region Tile
-    public abstract void SetNextTiles();
+    protected abstract void SetNextTiles();
 
     protected void UpdateUiTiles()
     {
-        foreach (var tile in showTiles)
+        foreach (var _tile in showTiles)
         {
-            if(tile.DataEmpty())
+            if(_tile.DataEmpty())
             {
                 if (nextTiles.Count == 0) return;
 
-                tile.Init(nextTiles.Dequeue());
+                _tile.Init(nextTiles.Dequeue());
             }
         }
     }
 
     protected virtual void Spawn()
     {
-        MoveTile tile = TilePooling.Instance.Pop(tilePos);
+        MoveTile tile = TilePooling.Instance.Pop(tileGroupTrm);
         tile.Init(showTiles[showTileNum].Use(), MoveFinCheck);
 
         board.Spawn(tile);
@@ -96,7 +93,7 @@ public abstract class GameSystem : MonoBehaviour
         }
     }
 
-    public void Move(List<MoveTile> _moveTiles)
+    private void Move(List<MoveTile> _moveTiles)
     {
         moveTileCnt = _moveTiles.Count;
         checkTileCnt = 0;
@@ -105,7 +102,12 @@ public abstract class GameSystem : MonoBehaviour
     }
     #endregion
 
-    #region Option or Quit
+    #region Quit
+    protected virtual void OnDestroy()
+    {
+        dragEvent.RemoveAllListeners();
+    }
+
     private void OnApplicationQuit()
     {
         ApplicationQuit();

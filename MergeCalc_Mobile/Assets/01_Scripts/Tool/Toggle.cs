@@ -48,4 +48,10 @@ public class Toggle : Button
         btnSeq.Append(btnTarget.transform.DOLocalMoveX(value ? 0 : offXValue, 0.1f));
         btnSeq.OnComplete(() => toggleEvent?.Invoke(value));
     }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        toggleEvent.RemoveAllListeners();
+    }
 }

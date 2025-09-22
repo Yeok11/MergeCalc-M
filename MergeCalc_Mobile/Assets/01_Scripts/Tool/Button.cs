@@ -19,7 +19,6 @@ public class Button : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     protected virtual void Awake()
     {
         if (btnTarget == null) btnTarget = GetComponent<Image>();
-
         InitButtonUi();
     }
 
@@ -54,5 +53,10 @@ public class Button : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private void InitButtonUi()
     {
         btnTarget.color = baseColor;
+    }
+
+    protected virtual void OnDestroy()
+    {
+        clickEvent.RemoveAllListeners();
     }
 }
