@@ -16,6 +16,7 @@ public class ReachMode : GameSystem
         {
             LeaveTime = value;
             if (LeaveTime > gameTime) LeaveTime = gameTime;
+            if (LeaveTime <= 0) GameOver();
         }
     }
     private float LeaveTime, gameTime = 60;
@@ -59,14 +60,8 @@ public class ReachMode : GameSystem
     {
         NextTileCheck();
         if(!timeStream) timeStream = true;
-        DeadCheck();
     }
     #endregion
-
-    private void DeadCheck()
-    {
-        if (0 >= leaveTime) GameOver();
-    }
 
     protected override void GameOver()
     {
@@ -131,10 +126,8 @@ public class ReachMode : GameSystem
         SetTarget();
     }
 
-    #region Quit
     protected override void ApplicationQuit()
     {
         GameData.ScoreUpdate(score, Mode.Reach);
     }
-    #endregion
 }
