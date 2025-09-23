@@ -23,6 +23,7 @@ public abstract class GameSystem : MonoBehaviour
 
     private void Awake()
     {
+        dragEvent = new();
         board = GetComponent<Board>();
     }
 

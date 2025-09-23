@@ -2768,16 +2768,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainTilePrefab: {fileID: 3418777382692948154, guid: e7214f386e433a54693cdb698971225b, type: 3}
-  tilePos: {fileID: 6080657}
+  tileGroupTrm: {fileID: 6080657}
   scoreTmp: {fileID: 1108838349}
+  tileMoveTime: 0.2
+  boundValue: 0.1
   showTiles:
   - {fileID: 2071697499}
   - {fileID: 664574070}
   - {fileID: 757781850}
   - {fileID: 1755626139}
   - {fileID: 1568679795}
-  tileMoveTime: 0.2
-  boundValue: 0.1
   targetText: {fileID: 1734048532}
   timer: {fileID: 174942101}
 --- !u!114 &1405691323
@@ -5019,6 +5019,14 @@ PrefabInstance:
       propertyPath: clickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1405691322}
+    - target: {fileID: 6681083436455403593, guid: 2af012ae14e46ec43afb1c264e166d68, type: 3}
+      propertyPath: onCloseEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6681083436455403593, guid: 2af012ae14e46ec43afb1c264e166d68, type: 3}
+      propertyPath: onCloseEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6922061249276323747, guid: 2af012ae14e46ec43afb1c264e166d68, type: 3}
       propertyPath: m_Name
       value: Option Panel

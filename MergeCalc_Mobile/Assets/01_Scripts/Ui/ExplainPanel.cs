@@ -9,8 +9,8 @@ public class ExplainPanel : Panel
     public override void Init()
     {
         if (home == null) home = FindAnyObjectByType<Home>();
-        onOpenEvent.AddListener(() => DataUpdate(home.GetMode()));
         base.Init();
+        onOpenEvent.AddListener(() => DataUpdate(home.GetMode()));
     }
 
     public void DataUpdate(ModeSO _mode)

@@ -19,6 +19,7 @@ public class Toggle : Button
     {
         base.Awake();
 
+        toggleEvent = new();
         if (bgTarget == null) bgTarget = GetComponent<Image>();
     }
 

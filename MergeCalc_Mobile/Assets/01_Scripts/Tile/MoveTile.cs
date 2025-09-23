@@ -18,6 +18,7 @@ public class MoveTile : Tile
         base.Init(_tileData);
 
         time = _tileData.time;
+        moveFin = new();
         moveFin.AddListener(_moveFin);
         bound = _tileData.bound;
         isMerging = false;
@@ -77,6 +78,6 @@ public class MoveTile : Tile
 
     protected virtual void OnDestroy()
     {
-        moveFin.RemoveAllListeners();
+        if(moveFin != null) moveFin.RemoveAllListeners();
     }
 }

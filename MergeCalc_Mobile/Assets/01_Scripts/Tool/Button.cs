@@ -19,6 +19,7 @@ public class Button : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     protected virtual void Awake()
     {
         if (btnTarget == null) btnTarget = GetComponent<Image>();
+        if (clickEvent.GetPersistentEventCount() == 0) clickEvent = new();
         InitButtonUi();
     }
 

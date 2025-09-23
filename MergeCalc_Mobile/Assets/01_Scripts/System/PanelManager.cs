@@ -18,9 +18,9 @@ public class PanelManager : MonoBehaviour
     {
         foreach (var _panel in panels)
         {
+            _panel.Init();
             _panel.onCloseEvent.AddListener(() => openPanelState = false);
             _panel.onCloseEvent.AddListener(() => blackView.SetActive(false));
-            _panel.Init();
 
             var _key = _panel.GetKey();
 

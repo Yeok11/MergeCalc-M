@@ -14,6 +14,8 @@ public class OptionPanel : Panel
     {
         base.Init();
 
+        buttonUseable = new();
+
         foreach (var _btn in buttons) 
             buttonUseable.AddListener((bool _value) => _btn.useAble = _value);
 

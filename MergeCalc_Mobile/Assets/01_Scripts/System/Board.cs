@@ -42,6 +42,7 @@ public class Board : MonoBehaviour
         gameBoard[2, 2] = _tile;
         _tile.transform.localPosition = Vector3.zero;
 
+        moveEvent = new();
         moveEvent.AddListener(_moveEvent);
     }
 

@@ -11,8 +11,9 @@ public class MainTile : MoveTile
     {
         base.Init(_tileData, _moveFin);
 
-        moveFin.AddListener(MergeUpdate);
+        mergeEvent = new();
         mergeEvent.AddListener((int _n) => TileAnime());
+        moveFin.AddListener(MergeUpdate);
     }
 
     protected override void TextUpdate() => tmp.text = data.num.ToString();
